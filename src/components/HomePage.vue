@@ -526,7 +526,7 @@ const getImageUrl = (imageName) => {
 }
 
 .product-name {
-  font-size: 0.75rem;
+  font-size: 1rem;
   color: #555;
   line-height: 1.2;
   height: 2.4rem;
@@ -723,7 +723,7 @@ const getImageUrl = (imageName) => {
   }
   
   .product-name {
-    font-size: 0.7rem;
+    font-size: 1rem;
     height: 2rem;
   }
 }
