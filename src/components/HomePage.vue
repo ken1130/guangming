@@ -202,6 +202,7 @@ const productCategories = ref([
       { name: '空白紙杯6.5oz', image: '空白紙杯6.5oz.png' },
       { name: '空白紙杯7oz', image: '空白紙杯7oz.png' },
       { name: '空白紙杯9oz', image: '空白紙杯9oz.png' },
+      { name: '空白紙杯樣式', image: '白杯sample.jpg' },
       { name: '塑膠杯', image: '塑膠杯.jpg' },
       { name: '縮小紙杯', image: '縮小紙杯.jpg' },
     ]
@@ -219,8 +220,7 @@ const productCategories = ref([
       { name: '嬌采抽取式衛生紙', image: '嬌采.jpg' },
       { name: '平板衛生紙', image: '平板衛生紙.webp' },
       { name: '紙毛巾', image: '紙毛巾.webp' },
-      { name: '嬌采大捲衛生紙', image: '嬌采(大捲衛生紙).jpg' },
-      { name: '優活小捲衛生紙', image: '優活(小捲衛生紙).jpg' },
+      { name: '嬌采大捲衛生紙', image: '嬌采大捲衛生紙.jpg' },
     ]
   },
   {
