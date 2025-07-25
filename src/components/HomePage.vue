@@ -68,7 +68,6 @@
             v-for="category in productCategories" 
             :key="category.id"
             class="product-card"
-            :class="{ 'mobile-hidden': category.id > 4 && !showAllProducts }"
           >
             <div class="product-header">
               <div class="product-icon">{{ category.icon }}</div>
@@ -76,17 +75,12 @@
               <p class="product-count">{{ category.products.length }} 種產品</p>
             </div>
             
-            <!-- 顯示代表產品圖片 -->
-            <div class="product-images" :class="{ 'show-all': showAllProducts }">
+            <!-- 顯示所有產品圖片 -->
+            <div class="product-images">
               <div 
-                v-for="(product, index) in category.products" 
+                v-for="product in category.products" 
                 :key="product.name"
                 class="product-image-item"
-                :class="{ 
-                  'desktop-hidden': index >= 4 && !showAllProducts,
-                  'tablet-hidden': index >= 3 && !showAllProducts,
-                  'mobile-hidden': index >= 2 && !showAllProducts
-                }"
               >
                 <img 
                   :src="getImageUrl(product.image)" 
@@ -99,36 +93,10 @@
               </div>
             </div>
             
-            <!-- 手機版簡化顯示 -->
-            <div class="mobile-product-summary" v-if="!showAllProducts">
-              <p class="mobile-summary-text tablet-text">
-                還有 {{ category.products.length - 3 }} 種產品
-              </p>
-              <p class="mobile-summary-text mobile-text">
-                還有 {{ category.products.length - 2 }} 種產品
-              </p>
-            </div>
-            
             <div class="product-footer">
               <button @click="smoothScrollTo('contact')" class="product-btn">詳細諮詢</button>
             </div>
           </div>
-        </div>
-        
-        <!-- 查看更多/收合按鈕 -->
-        <div class="toggle-products-section">
-          <button 
-            @click="toggleShowAllProducts" 
-            class="toggle-products-btn"
-          >
-            {{ showAllProducts ? '收合產品' : '查看所有產品' }}
-            <span class="toggle-icon">{{ showAllProducts ? '↑' : '↓' }}</span>
-          </button>
-        </div>
-        
-        <!-- 手機版查看更多提示 -->
-        <div class="mobile-more-categories" v-if="!showAllProducts">
-          <p class="more-text">點擊上方按鈕查看所有產品分類！</p>
         </div>
       </div>
     </section>
@@ -223,17 +191,52 @@ const smoothScrollTo = (targetId) => {
   }
 }
 
-// 展開/收合功能
-const showAllProducts = ref(false)
-
-const toggleShowAllProducts = () => {
-  showAllProducts.value = !showAllProducts.value
-}
-
 // 產品資料
 const productCategories = ref([
-  {
+
+{
     id: 1,
+    category: '紙杯專用',
+    icon: '🥤',
+    products: [
+      { name: '空白紙杯6.5oz', image: '空白紙杯6.5oz.png' },
+      { name: '空白紙杯7oz', image: '空白紙杯7oz.png' },
+      { name: '空白紙杯9oz', image: '空白紙杯9oz.png' },
+      { name: '塑膠杯', image: '塑膠杯.jpg' },
+      { name: '縮小紙杯', image: '縮小紙杯.jpg' },
+    ]
+  },
+  {
+    id: 2,
+    category: '衛生清潔用品',
+    icon: '🧻',
+    products: [
+      { name: '擦手紙(厚)', image: '高品質.jpg' },
+      { name: '優活衛生紙', image: '優活衛生紙.webp' },
+      { name: '優活大捲衛生紙', image: '優活大捲衛生紙.webp' },
+      { name: '優活小捲衛生紙', image: '優活小捲衛生紙.webp' },
+      { name: '小抽衛生紙(優活)', image: '小抽衛生紙(優活).webp' },
+      { name: '抽取式衛生紙(嬌采)', image: '嬌采.jpg' },
+      { name: '平板衛生紙', image: '平板衛生紙.webp' },
+      { name: '紙毛巾', image: '紙毛巾.webp' },
+      { name: '嬌采(大捲衛生紙)', image: '嬌采(大捲衛生紙).jpg' },
+      { name: '優活(小捲衛生紙)', image: '優活(小捲衛生紙).jpg' },
+    ]
+  },
+  {
+    id: 3,
+    category: '垃圾袋',
+    icon: '🗑️',
+    products: [
+      { name: '垃圾袋(小)', image: '垃圾袋小.jpg' },
+      { name: '垃圾袋(中)', image: '垃圾袋中.jpg' },
+      { name: '垃圾袋(大)', image: '垃圾袋大.jpg' },
+      { name: '垃圾袋(特大)', image: '垃圾袋特大.jpg' },
+      { name: '捲筒清潔袋(超大)(黑色&灰色)', image: '捲筒清潔袋(超大)(黑色&灰色).webp' },
+    ]
+  },
+  {
+    id: 4,
     category: '按摩護理用品',
     icon: '💆‍♀️',
     products: [
@@ -244,23 +247,7 @@ const productCategories = ref([
     ]
   },
   {
-    id: 2,
-    category: '衛生清潔用品',
-    icon: '🧻',
-    products: [
-      { name: '優活衛生紙', image: '優活衛生紙.webp' },
-      { name: '優活大捲衛生紙', image: '優活大捲衛生紙.webp' },
-      { name: '優活小捲衛生紙', image: '優活小捲衛生紙.webp' },
-      { name: '小抽衛生紙(優活)', image: '小抽衛生紙(優活).webp' },
-      { name: '抽取式衛生紙(嬌采)', image: '嬌采.jpg' },
-      { name: '平板衛生紙', image: '平板衛生紙.webp' },
-      { name: '紙褲', image: '紙褲.webp' },
-      { name: '紙毛巾', image: '紙毛巾.webp' },
-      { name: '擦手紙(厚)', image: '高品質.jpg' },
-    ]
-  },
-  {
-    id: 3,
+    id: 5,
     category: '清潔用品',
     icon: '🧽',
     products: [
@@ -275,31 +262,15 @@ const productCategories = ref([
     ]
   },
   {
-    id: 4,
+    id: 6,
     category: '毛巾寢具用品',
     icon: '🛏️',
     products: [
       { name: '布織布浴巾', image: '布織布浴巾.webp' },
       { name: '無塵紙浴巾', image: '無塵紙浴巾.webp' },
-      { name: '床巾', image: '床斤.webp' }
-    ]
-  },
-  {
-    id: 5,
-    category: '包裝用品',
-    icon: '📦',
-    products: [
-      { name: '垃圾袋', image: '垃圾袋.webp' },
-      { name: '捲筒清潔袋(超大)(黑色&灰色)', image: '捲筒清潔袋(超大)(黑色&灰色).webp' },
-      { name: '清潔袋', image: '清潔袋.webp' }
-    ]
-  },
-  {
-    id: 6,
-    category: '餐具用品',
-    icon: '🥤',
-    products: [
-      { name: '塑膠杯', image: '塑膠杯.jpg' },
+      { name: '布織布(箱)', image: '布織布(箱).jpg' },
+      { name: '紙浴巾(箱)', image: '紙浴巾(箱).jpg' },
+      { name: '床巾(80*180cm)', image: '床斤.webp' }
     ]
   },
 ])
@@ -657,7 +628,7 @@ const handleImageError = (event) => {
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
 }
 
@@ -703,94 +674,24 @@ const handleImageError = (event) => {
 
 .product-images {
   flex: 1;
-  padding: 1rem;
+  padding: 1.5rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
-  transition: all 0.3s ease;
-}
-
-.product-images.show-all {
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-}
-
-.mobile-product-summary {
-  display: none;
-  padding: 0 1rem 1rem;
-}
-
-.mobile-more-categories {
-  display: none;
-  text-align: center;
-  padding: 2rem 1rem 0;
-}
-
-.toggle-products-section {
-  text-align: center;
-  padding: 2rem 0;
-}
-
-.toggle-products-btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  padding: 15px 30px;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
+  gap: 1rem;
   transition: all 0.3s ease;
+}
+
+.product-image-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  margin: 0 auto;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.toggle-products-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-  background: linear-gradient(135deg, #5a6fd8 0%, #6a5395 100%);
-}
-
-.toggle-icon {
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
-}
-
-/* 響應式隱藏類別 */
-.desktop-hidden {
-  display: none;
-}
-
-.tablet-hidden {
-  display: none;
-}
-
-.mobile-hidden {
-  display: none;
-}
-
-.more-text {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-  border-left: 4px solid #667eea;
-}
-
-.mobile-summary-text {
-  font-size: 0.9rem;
-  color: #666;
-  line-height: 1.4;
-  margin: 0;
+  text-align: center;
+  height: 100%;
 }
 
 .product-image {
   width: 100%;
-  height: 80px;
+  height: 100px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 0.5rem;
@@ -802,48 +703,15 @@ const handleImageError = (event) => {
   transform: scale(1.05);
 }
 
-.product-image-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  height: 100%;
-}
-
-.product-image-placeholder {
-  width: 80px;
-  height: 80px;
-  background: #f0f0f0;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-}
-
-.product-image-placeholder:hover {
-  transform: scale(1.05);
-}
-
 .product-name {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #555;
-  line-height: 1.2;
-  height: 2.4rem;
+  line-height: 1.3;
+  height: auto;
   display: flex;
   align-items: center;
   text-align: center;
-}
-
-.more-products {
-  padding: 0 1rem 1rem;
-  text-align: center;
-  color: #666;
-  font-size: 0.9rem;
-  font-style: italic;
+  flex-grow: 1;
 }
 
 .product-footer {
@@ -972,40 +840,17 @@ const handleImageError = (event) => {
   }
   
   .product-images {
-    grid-template-columns: 1fr 1fr 1fr; /* 平板版顯示3列 */
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 0.8rem;
     padding: 1rem;
   }
   
-  .desktop-hidden {
-    display: flex !important; /* 在平板版顯示桌面版隱藏的項目 */
-  }
-  
-  .tablet-hidden {
-    display: none !important; /* 在平板版隱藏平板版隱藏的項目 */
-  }
-  
   .product-image {
-    height: 70px; /* 平板版圖片尺寸 */
+    height: 80px;
   }
   
-  .mobile-product-summary {
-    display: block;
-    padding: 0 1rem 1rem;
-  }
-  
-  .mobile-summary-text {
-    font-size: 0.85rem;
-    text-align: center;
-    margin: 0;
-  }
-  
-  .mobile-text {
-    display: none; /* 平板版隱藏手機版文字 */
-  }
-  
-  .tablet-text {
-    display: block; /* 平板版顯示平板版文字 */
+  .product-name {
+    font-size: 0.8rem;
   }
   
   /* 模態視窗在平板上的調整 */
@@ -1057,78 +902,35 @@ const handleImageError = (event) => {
     padding: 0 15px;
   }
   
-  /* 手機版產品顯示優化 */
+  .products-section {
+    padding: 60px 0;
+  }
+  
   .product-images {
-    display: grid; /* 顯示圖片，但使用不同佈局 */
-    grid-template-columns: 1fr 1fr; /* 手機版顯示2列 */
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
-    padding: 0.8rem;
-  }
-  
-  .desktop-hidden {
-    display: flex !important; /* 在手機版顯示桌面版隱藏的項目 */
-  }
-  
-  .tablet-hidden {
-    display: flex !important; /* 在手機版顯示平板版隱藏的項目 */
-  }
-  
-  .mobile-hidden {
-    display: none !important; /* 在手機版隱藏手機版隱藏的項目 */
-  }
-  
-  .mobile-product-summary {
-    display: block; /* 同時顯示文字說明 */
-    padding: 0 0.8rem 0.8rem;
-  }
-  
-  .mobile-summary-text {
-    font-size: 0.8rem;
-    text-align: center;
-    margin: 0;
+    padding: 1rem;
   }
   
   .product-image {
-    height: 80px; /* 手機版放大圖片 */
+    height: 70px;
   }
   
   .product-name {
     font-size: 0.75rem;
-    height: 2.5rem;
     line-height: 1.2;
   }
   
-  .products-section {
-    padding: 60px 0; /* 減少手機版的 padding */
-  }
-  
-  .product-card {
-    margin-bottom: 1rem; /* 減少卡片間距 */
-  }
-  
   .product-header {
-    padding: 1rem; /* 減少頭部 padding */
+    padding: 1rem;
   }
   
   .product-icon {
-    font-size: 2rem; /* 較小的圖標 */
+    font-size: 2rem;
   }
   
   .product-category {
     font-size: 1.1rem;
-  }
-  
-  .product-card.mobile-hidden {
-    display: none; /* 在手機版隱藏部分分類 */
-  }
-  
-  .mobile-more-categories {
-    display: block; /* 在手機版顯示查看更多提示 */
-  }
-  
-  .toggle-products-btn {
-    padding: 12px 24px;
-    font-size: 1rem;
   }
   
   /* 手機版模態視窗優化 */
