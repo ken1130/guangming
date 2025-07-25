@@ -1,7 +1,215 @@
+<template>
+  <div class="home">
+    <!-- 圖片放大模態視窗 -->
+    <div v-if="showImageModal" class="image-modal-overlay" @click="closeImageModal">
+      <div class="image-modal" @click.stop>
+        <button class="modal-close-btn" @click="closeImageModal">
+          <span>&times;</span>
+        </button>
+        <img 
+          :src="modalImage.src" 
+          :alt="modalImage.alt" 
+          class="modal-image"
+          @error="handleImageError"
+        />
+        <div class="modal-caption">
+          <h3>{{ modalImage.name }}</h3>
+          <p>點擊背景或按 ESC 鍵關閉</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 英雄區塊 -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <h1 class="hero-title">光明清潔企業社</h1>
+          <p class="hero-subtitle">35年專業經驗 · 品質值得信賴</p>
+          <p class="hero-description">
+            專業提供各式清潔用品，從按摩護理用品到衛生清潔用品，滿足您的各種需求
+          </p>
+          <div class="hero-actions">
+            <button @click="smoothScrollTo('products')" class="btn-primary">查看產品</button>
+            <button @click="smoothScrollTo('contact')" class="btn-secondary">聯絡我們</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="hero-placeholder">
+            🧹 專業清潔用品供應商
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 公司特色 -->
+    <section class="features-section">
+      <div class="container">
+        <h2 class="section-title">為什麼選擇我們</h2>
+        <div class="features-grid">
+          <div 
+            v-for="feature in features" 
+            :key="feature.title"
+            class="feature-card"
+          >
+            <div class="feature-icon">{{ feature.icon }}</div>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-description">{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 主要產品 -->
+    <section id="products" class="products-section">
+      <div class="container">
+        <h2 class="section-title">產品分類</h2>
+        <div class="products-grid">
+          <div 
+            v-for="category in productCategories" 
+            :key="category.id"
+            class="product-card"
+            :class="{ 'mobile-hidden': category.id > 4 && !showAllProducts }"
+          >
+            <div class="product-header">
+              <div class="product-icon">{{ category.icon }}</div>
+              <h3 class="product-category">{{ category.category }}</h3>
+              <p class="product-count">{{ category.products.length }} 種產品</p>
+            </div>
+            
+            <!-- 顯示代表產品圖片 -->
+            <div class="product-images" :class="{ 'show-all': showAllProducts }">
+              <div 
+                v-for="(product, index) in category.products" 
+                :key="product.name"
+                class="product-image-item"
+                :class="{ 
+                  'desktop-hidden': index >= 4 && !showAllProducts,
+                  'tablet-hidden': index >= 3 && !showAllProducts,
+                  'mobile-hidden': index >= 2 && !showAllProducts
+                }"
+              >
+                <img 
+                  :src="getImageUrl(product.image)" 
+                  :alt="product.name" 
+                  class="product-image clickable-image" 
+                  @error="handleImageError"
+                  @click="openImageModal(product.image, product.name)"
+                />
+                <span class="product-name">{{ product.name }}</span>
+              </div>
+            </div>
+            
+            <!-- 手機版簡化顯示 -->
+            <div class="mobile-product-summary" v-if="!showAllProducts">
+              <p class="mobile-summary-text tablet-text">
+                還有 {{ category.products.length - 3 }} 種產品
+              </p>
+              <p class="mobile-summary-text mobile-text">
+                還有 {{ category.products.length - 2 }} 種產品
+              </p>
+            </div>
+            
+            <div class="product-footer">
+              <button @click="smoothScrollTo('contact')" class="product-btn">詳細諮詢</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 查看更多/收合按鈕 -->
+        <div class="toggle-products-section">
+          <button 
+            @click="toggleShowAllProducts" 
+            class="toggle-products-btn"
+          >
+            {{ showAllProducts ? '收合產品' : '查看所有產品' }}
+            <span class="toggle-icon">{{ showAllProducts ? '↑' : '↓' }}</span>
+          </button>
+        </div>
+        
+        <!-- 手機版查看更多提示 -->
+        <div class="mobile-more-categories" v-if="!showAllProducts">
+          <p class="more-text">點擊上方按鈕查看所有產品分類！</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 聯絡資訊 -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2 class="section-title">聯絡我們</h2>
+        <div class="contact-info-grid">
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-details">
+              <h4>公司地址</h4>
+              <p>台中市北屯區昌平路2段10巷72弄113號1樓</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📞</div>
+            <div class="contact-details">
+              <h4>聯絡電話</h4>
+              <p>04-22416726</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <div class="contact-details">
+              <h4>手機號碼</h4>
+              <p>0988-335-658</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a href="tel:04-22416726" class="btn-primary">撥打電話</a>
+          <a href="tel:0988335658" class="btn-secondary">手機聯絡</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
+
 <script setup>
 // 光明清潔企業社首頁組件
 import { ref } from 'vue'
 
+// 圖片放大模態視窗相關
+const showImageModal = ref(false)
+const modalImage = ref({
+  src: '',
+  alt: '',
+  name: ''
+})
+
+// 打開圖片放大模態視窗
+const openImageModal = (imageName, productName) => {
+  modalImage.value = {
+    src: getImageUrl(imageName),
+    alt: productName,
+    name: productName
+  }
+  showImageModal.value = true
+  // 防止背景滾動
+  document.body.style.overflow = 'hidden'
+}
+
+// 關閉圖片放大模態視窗
+const closeImageModal = () => {
+  showImageModal.value = false
+  modalImage.value = { src: '', alt: '', name: '' }
+  // 恢復背景滾動
+  document.body.style.overflow = 'auto'
+}
+
+// 按 ESC 鍵關閉模態視窗
+const handleKeyDown = (event) => {
+  if (event.key === 'Escape' && showImageModal.value) {
+    closeImageModal()
+  }
+}
+
+// 監聽鍵盤事件
+document.addEventListener('keydown', handleKeyDown)
 
 // 平滑滾動函數
 const smoothScrollTo = (targetId) => {
@@ -21,7 +229,6 @@ const showAllProducts = ref(false)
 const toggleShowAllProducts = () => {
   showAllProducts.value = !showAllProducts.value
 }
-
 
 // 產品資料
 const productCategories = ref([
@@ -130,157 +337,6 @@ const handleImageError = (event) => {
 }
 </script>
 
-<template>
-  <div class="home">
-    <!-- 英雄區塊 -->
-    <section class="hero-section">
-      <div class="container">
-        <div class="hero-content">
-          <h1 class="hero-title">光明清潔企業社</h1>
-          <p class="hero-subtitle">35年專業經驗 · 品質值得信賴</p>
-          <p class="hero-description">
-            專業提供各式清潔用品，從按摩護理用品到衛生清潔用品，滿足您的各種需求
-          </p>
-          <div class="hero-actions">
-            <button @click="smoothScrollTo('products')" class="btn-primary">查看產品</button>
-            <button @click="smoothScrollTo('contact')" class="btn-secondary">聯絡我們</button>
-          </div>
-        </div>
-        <div class="hero-image">
-          <div class="hero-placeholder">
-            🧹 專業清潔用品供應商
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 公司特色 -->
-    <section class="features-section">
-      <div class="container">
-        <h2 class="section-title">為什麼選擇我們</h2>
-        <div class="features-grid">
-          <div 
-            v-for="feature in features" 
-            :key="feature.title"
-            class="feature-card"
-          >
-            <div class="feature-icon">{{ feature.icon }}</div>
-            <h3 class="feature-title">{{ feature.title }}</h3>
-            <p class="feature-description">{{ feature.description }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 主要產品 -->
-    <section id="products" class="products-section">
-      <div class="container">
-        <h2 class="section-title">產品分類</h2>
-        <div class="products-grid">
-          <div 
-            v-for="category in productCategories" 
-            :key="category.id"
-            class="product-card"
-            :class="{ 'mobile-hidden': category.id > 4 && !showAllProducts }"
-          >
-            <div class="product-header">
-              <div class="product-icon">{{ category.icon }}</div>
-              <h3 class="product-category">{{ category.category }}</h3>
-              <p class="product-count">{{ category.products.length }} 種產品</p>
-            </div>
-            
-            <!-- 顯示代表產品圖片 -->
-            <div class="product-images" :class="{ 'show-all': showAllProducts }">
-              <div 
-                v-for="(product, index) in category.products" 
-                :key="product.name"
-                class="product-image-item"
-                :class="{ 
-                  'desktop-hidden': index >= 4 && !showAllProducts,
-                  'tablet-hidden': index >= 3 && !showAllProducts,
-                  'mobile-hidden': index >= 2 && !showAllProducts
-                }"
-              >
-                <img 
-                  :src="getImageUrl(product.image)" 
-                  :alt="product.name" 
-                  class="product-image" 
-                  @error="handleImageError" 
-                />
-                <span class="product-name">{{ product.name }}</span>
-              </div>
-            </div>
-            
-            <!-- 手機版簡化顯示 -->
-            <div class="mobile-product-summary" v-if="!showAllProducts">
-              <p class="mobile-summary-text tablet-text">
-                還有 {{ category.products.length - 3 }} 種產品
-              </p>
-              <p class="mobile-summary-text mobile-text">
-                還有 {{ category.products.length - 2 }} 種產品
-              </p>
-            </div>
-            
-            <div class="product-footer">
-              <button @click="smoothScrollTo('contact')" class="product-btn">詳細諮詢</button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- 查看更多/收合按鈕 -->
-        <div class="toggle-products-section">
-          <button 
-            @click="toggleShowAllProducts" 
-            class="toggle-products-btn"
-          >
-            {{ showAllProducts ? '收合產品' : '查看所有產品' }}
-            <span class="toggle-icon">{{ showAllProducts ? '↑' : '↓' }}</span>
-          </button>
-        </div>
-        
-        <!-- 手機版查看更多提示 -->
-        <div class="mobile-more-categories" v-if="!showAllProducts">
-          <p class="more-text">點擊上方按鈕查看所有產品分類！</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 聯絡資訊 -->
-    <section id="contact" class="contact-section">
-      <div class="container">
-        <h2 class="section-title">聯絡我們</h2>
-        <div class="contact-info-grid">
-          <div class="contact-item">
-            <div class="contact-icon">📍</div>
-            <div class="contact-details">
-              <h4>公司地址</h4>
-              <p>台中市北屯區昌平路2段10巷72弄113號1樓</p>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📞</div>
-            <div class="contact-details">
-              <h4>聯絡電話</h4>
-              <p>04-22416726</p>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📱</div>
-            <div class="contact-details">
-              <h4>手機號碼</h4>
-              <p>0988-335-658</p>
-            </div>
-          </div>
-        </div>
-        <div class="contact-actions">
-          <a href="tel:04-22416726" class="btn-primary">撥打電話</a>
-          <a href="tel:0988335658" class="btn-secondary">手機聯絡</a>
-        </div>
-      </div>
-    </section>
-  </div>
-</template>
-
 <style scoped>
 /* 全域樣式 */
 * {
@@ -318,6 +374,130 @@ const handleImageError = (event) => {
   height: 4px;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 2px;
+}
+
+/* 圖片放大模態視窗樣式 */
+.image-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+}
+
+.image-modal {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.modal-caption {
+  margin-top: 20px;
+  text-align: center;
+  color: white;
+}
+
+.modal-caption h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #fff;
+}
+
+.modal-caption p {
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.7;
+}
+
+/* 可點擊圖片樣式 */
+.clickable-image {
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.clickable-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.clickable-image::after {
+  content: '🔍';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.clickable-image:hover::after {
+  opacity: 1;
 }
 
 /* 英雄區塊 */
@@ -827,6 +1007,22 @@ const handleImageError = (event) => {
   .tablet-text {
     display: block; /* 平板版顯示平板版文字 */
   }
+  
+  /* 模態視窗在平板上的調整 */
+  .modal-close-btn {
+    top: -40px;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+  
+  .modal-image {
+    max-height: 60vh;
+  }
+  
+  .modal-caption h3 {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -934,7 +1130,46 @@ const handleImageError = (event) => {
     padding: 12px 24px;
     font-size: 1rem;
   }
+  
+  /* 手機版模態視窗優化 */
+  .image-modal-overlay {
+    padding: 20px;
+  }
+  
+  .image-modal {
+    max-width: 95vw;
+    max-height: 85vh;
+  }
+  
+  .modal-close-btn {
+    top: -35px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+  
+  .modal-image {
+    max-height: 50vh;
+    border-radius: 8px;
+  }
+  
+  .modal-caption {
+    margin-top: 15px;
+  }
+  
+  .modal-caption h3 {
+    font-size: 1.1rem;
+  }
+  
+  .modal-caption p {
+    font-size: 0.8rem;
+  }
+  
+  .clickable-image::after {
+    width: 25px;
+    height: 25px;
+    font-size: 10px;
+  }
 }
 </style>
-
-
