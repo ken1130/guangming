@@ -253,10 +253,10 @@ const productCategories = ref([
     products: [
       { name: '洗潔精', image: '洗潔精.webp' },
       { name: '漂白水', image: '漂白水.webp' },
-      { name: '地板清潔劑', image: '地板清潔劑.jpg' },
-      { name: '玻璃清潔劑', image: '玻璃清潔劑.jpg' },
-      { name: '浴廁清潔劑', image: '浴廁清潔劑.jpg' },
-      { name: '潤膚洗手乳', image: '潤膚洗手乳.jpg' },
+      { name: '地板清潔劑(ISO認證)', image: '地板清潔劑.jpg' },
+      { name: '玻璃清潔劑(ISO認證)', image: '玻璃清潔劑.jpg' },
+      { name: '浴廁清潔劑(ISO認證)', image: '浴廁清潔劑.jpg' },
+      { name: '潤膚洗手乳(ISO認證)', image: '潤膚洗手乳.jpg' },
       { name: '強效泡沫除油劑(焦炭剋星)', image: '強效泡沫除油劑(焦炭剋星).webp' },
       { name: '妙管家洗衣粉', image: '妙管家洗衣粉.webp' }
     ]
