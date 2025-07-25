@@ -15,6 +15,13 @@ const smoothScrollTo = (targetId) => {
   }
 }
 
+// 展開/收合功能
+const showAllProducts = ref(false)
+
+const toggleShowAllProducts = () => {
+  showAllProducts.value = !showAllProducts.value
+}
+
 
 // 產品資料
 const productCategories = ref([
@@ -132,8 +139,11 @@ const features = ref([
 ])
 
 const getImageUrl = (imageName) => {
-  console.log(imageName)
   return `/images/${imageName}`
+}
+
+const handleImageError = (event) => {
+  event.target.style.display = 'none'
 }
 </script>
 
@@ -188,6 +198,7 @@ const getImageUrl = (imageName) => {
             v-for="category in productCategories" 
             :key="category.id"
             class="product-card"
+            :class="{ 'mobile-hidden': category.id > 4 && !showAllProducts }"
           >
             <div class="product-header">
               <div class="product-icon">{{ category.icon }}</div>
@@ -196,21 +207,57 @@ const getImageUrl = (imageName) => {
             </div>
             
             <!-- 顯示代表產品圖片 -->
-            <div class="product-images">
+            <div class="product-images" :class="{ 'show-all': showAllProducts }">
               <div 
-                v-for="product in category.products.slice(0, 12)" 
+                v-for="(product, index) in category.products" 
                 :key="product.name"
                 class="product-image-item"
+                :class="{ 
+                  'desktop-hidden': index >= 4 && !showAllProducts,
+                  'tablet-hidden': index >= 3 && !showAllProducts,
+                  'mobile-hidden': index >= 2 && !showAllProducts
+                }"
               >
-                <img style="display: block; width: 100%; height: auto;flex:1; border-radius: 8px; object-fit: cover;" :src="getImageUrl(product.image)" :alt="product.name" class="product-image" @error="handleImageError" />
+                <img 
+                  :src="getImageUrl(product.image)" 
+                  :alt="product.name" 
+                  class="product-image" 
+                  @error="handleImageError" 
+                />
                 <span class="product-name">{{ product.name }}</span>
               </div>
+            </div>
+            
+            <!-- 手機版簡化顯示 -->
+            <div class="mobile-product-summary" v-if="!showAllProducts">
+              <p class="mobile-summary-text tablet-text">
+                還有 {{ category.products.length - 3 }} 種產品
+              </p>
+              <p class="mobile-summary-text mobile-text">
+                還有 {{ category.products.length - 2 }} 種產品
+              </p>
             </div>
             
             <div class="product-footer">
               <button @click="smoothScrollTo('contact')" class="product-btn">詳細諮詢</button>
             </div>
           </div>
+        </div>
+        
+        <!-- 查看更多/收合按鈕 -->
+        <div class="toggle-products-section">
+          <button 
+            @click="toggleShowAllProducts" 
+            class="toggle-products-btn"
+          >
+            {{ showAllProducts ? '收合產品' : '查看所有產品' }}
+            <span class="toggle-icon">{{ showAllProducts ? '↑' : '↓' }}</span>
+          </button>
+        </div>
+        
+        <!-- 手機版查看更多提示 -->
+        <div class="mobile-more-categories" v-if="!showAllProducts">
+          <p class="more-text">點擊上方按鈕查看所有產品分類！</p>
         </div>
       </div>
     </section>
@@ -497,6 +544,99 @@ const getImageUrl = (imageName) => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.product-images.show-all {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.mobile-product-summary {
+  display: none;
+  padding: 0 1rem 1rem;
+}
+
+.mobile-more-categories {
+  display: none;
+  text-align: center;
+  padding: 2rem 1rem 0;
+}
+
+.toggle-products-section {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.toggle-products-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.toggle-products-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a5395 100%);
+}
+
+.toggle-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+/* 響應式隱藏類別 */
+.desktop-hidden {
+  display: none;
+}
+
+.tablet-hidden {
+  display: none;
+}
+
+.mobile-hidden {
+  display: none;
+}
+
+.more-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #667eea;
+}
+
+.mobile-summary-text {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.product-image {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.product-image:hover {
+  transform: scale(1.05);
 }
 
 .product-image-item {
@@ -669,13 +809,40 @@ const getImageUrl = (imageName) => {
   }
   
   .product-images {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr; /* 平板版顯示3列 */
+    gap: 0.8rem;
+    padding: 1rem;
   }
   
-  .product-image-placeholder {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
+  .desktop-hidden {
+    display: flex !important; /* 在平板版顯示桌面版隱藏的項目 */
+  }
+  
+  .tablet-hidden {
+    display: none !important; /* 在平板版隱藏平板版隱藏的項目 */
+  }
+  
+  .product-image {
+    height: 70px; /* 平板版圖片尺寸 */
+  }
+  
+  .mobile-product-summary {
+    display: block;
+    padding: 0 1rem 1rem;
+  }
+  
+  .mobile-summary-text {
+    font-size: 0.85rem;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .mobile-text {
+    display: none; /* 平板版隱藏手機版文字 */
+  }
+  
+  .tablet-text {
+    display: block; /* 平板版顯示平板版文字 */
   }
 }
 
@@ -711,20 +878,78 @@ const getImageUrl = (imageName) => {
     padding: 0 15px;
   }
   
+  /* 手機版產品顯示優化 */
   .product-images {
-    grid-template-columns: 1fr;
+    display: grid; /* 顯示圖片，但使用不同佈局 */
+    grid-template-columns: 1fr 1fr; /* 手機版顯示2列 */
     gap: 0.5rem;
+    padding: 0.8rem;
   }
   
-  .product-image-placeholder {
-    width: 50px;
-    height: 50px;
-    font-size: 1.2rem;
+  .desktop-hidden {
+    display: flex !important; /* 在手機版顯示桌面版隱藏的項目 */
+  }
+  
+  .tablet-hidden {
+    display: flex !important; /* 在手機版顯示平板版隱藏的項目 */
+  }
+  
+  .mobile-hidden {
+    display: none !important; /* 在手機版隱藏手機版隱藏的項目 */
+  }
+  
+  .mobile-product-summary {
+    display: block; /* 同時顯示文字說明 */
+    padding: 0 0.8rem 0.8rem;
+  }
+  
+  .mobile-summary-text {
+    font-size: 0.8rem;
+    text-align: center;
+    margin: 0;
+  }
+  
+  .product-image {
+    height: 60px; /* 手機版較小的圖片 */
   }
   
   .product-name {
+    font-size: 0.75rem;
+    height: 2.5rem;
+    line-height: 1.2;
+  }
+  
+  .products-section {
+    padding: 60px 0; /* 減少手機版的 padding */
+  }
+  
+  .product-card {
+    margin-bottom: 1rem; /* 減少卡片間距 */
+  }
+  
+  .product-header {
+    padding: 1rem; /* 減少頭部 padding */
+  }
+  
+  .product-icon {
+    font-size: 2rem; /* 較小的圖標 */
+  }
+  
+  .product-category {
+    font-size: 1.1rem;
+  }
+  
+  .product-card.mobile-hidden {
+    display: none; /* 在手機版隱藏部分分類 */
+  }
+  
+  .mobile-more-categories {
+    display: block; /* 在手機版顯示查看更多提示 */
+  }
+  
+  .toggle-products-btn {
+    padding: 12px 24px;
     font-size: 1rem;
-    height: 2rem;
   }
 }
 </style>
