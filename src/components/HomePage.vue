@@ -23,7 +23,7 @@ const productCategories = ref([
     category: '按摩護理用品',
     icon: '💆‍♀️',
     products: [
-      { name: '1+2+1油壓包', image: '1+2+1油壓包.webp' },
+      { name: '1+2+1油壓包', image: '油壓包.webp' },
       { name: '康禮士水國油', image: '康禮士水國油.webp' },
       { name: '康禮士護膚乳液', image: '康禮士護膚乳液.webp' },
       { name: '水果油', image: '水果油.webp' },
@@ -198,18 +198,13 @@ const getImageUrl = (imageName) => {
             <!-- 顯示代表產品圖片 -->
             <div class="product-images">
               <div 
-                v-for="product in category.products.slice(0, 4)" 
+                v-for="product in category.products.slice(0, 12)" 
                 :key="product.name"
                 class="product-image-item"
               >
                 <img style="display: block; width: 100%; height: auto;flex:1; border-radius: 8px; object-fit: cover;" :src="getImageUrl(product.image)" :alt="product.name" class="product-image" @error="handleImageError" />
                 <span class="product-name">{{ product.name }}</span>
               </div>
-            </div>
-            
-            <!-- 如果產品超過4個，顯示"查看更多" -->
-            <div v-if="category.products.length > 4" class="more-products">
-              還有 {{ category.products.length - 4 }} 種產品...
             </div>
             
             <div class="product-footer">
