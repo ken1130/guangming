@@ -2,6 +2,18 @@
 // 光明清潔企業社首頁組件
 import { ref } from 'vue'
 
+// 平滑滾動函數
+const smoothScrollTo = (targetId) => {
+  const element = document.getElementById(targetId)
+  if (element) {
+    const offsetTop = element.offsetTop - 100 // 減去導航列高度
+    window.scrollTo({
+      top: offsetTop,
+      behavior: 'smooth'
+    })
+  }
+}
+
 // 產品資料
 const productCategories = ref([
   {
@@ -90,8 +102,8 @@ const features = ref([
             專業提供各式清潔用品，從按摩護理用品到衛生清潔用品，滿足您的各種需求
           </p>
           <div class="hero-actions">
-            <button class="btn-primary">查看產品</button>
-            <button class="btn-secondary">聯絡我們</button>
+            <button @click="smoothScrollTo('products')" class="btn-primary">查看產品</button>
+            <button @click="smoothScrollTo('contact')" class="btn-secondary">聯絡我們</button>
           </div>
         </div>
         <div class="hero-image">
@@ -121,7 +133,7 @@ const features = ref([
     </section>
 
     <!-- 主要產品 -->
-    <section class="products-section">
+    <section id="products" class="products-section">
       <div class="container">
         <h2 class="section-title">產品分類</h2>
         <div class="products-grid">
@@ -142,7 +154,7 @@ const features = ref([
               </ul>
             </div>
             <div class="product-footer">
-              <button class="product-btn">詳細諮詢</button>
+              <button @click="smoothScrollTo('contact')" class="product-btn">詳細諮詢</button>
             </div>
           </div>
         </div>
@@ -150,7 +162,7 @@ const features = ref([
     </section>
 
     <!-- 聯絡資訊 -->
-    <section class="contact-section">
+    <section id="contact" class="contact-section">
       <div class="container">
         <h2 class="section-title">聯絡我們</h2>
         <div class="contact-info-grid">
@@ -376,6 +388,7 @@ const features = ref([
 .products-section {
   padding: 100px 0;
   background: white;
+  scroll-margin-top: 100px;
 }
 
 .products-grid {
@@ -477,6 +490,7 @@ const features = ref([
   padding: 100px 0;
   background: #2c3e50;
   color: white;
+  scroll-margin-top: 100px;
 }
 
 .contact-section .section-title {
