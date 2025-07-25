@@ -69,8 +69,8 @@ const productCategories = ref([
 const features = ref([
   {
     icon: '🏆',
-    title: '30年經驗',
-    description: '累積30年的專業經驗與信譽'
+    title: '35年經驗',
+    description: '累積35年的專業經驗與信譽'
   },
   {
     icon: '✅',
@@ -97,7 +97,7 @@ const features = ref([
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title">光明清潔企業社</h1>
-          <p class="hero-subtitle">30年專業經驗 · 品質值得信賴</p>
+          <p class="hero-subtitle">35年專業經驗 · 品質值得信賴</p>
           <p class="hero-description">
             專業提供各式清潔用品，從按摩護理用品到衛生清潔用品，滿足您的各種需求
           </p>

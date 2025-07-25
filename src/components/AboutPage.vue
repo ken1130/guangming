@@ -59,7 +59,7 @@ const values = ref([
             <h1 class="page-title">關於光明清潔企業社</h1>
             <p class="intro-description">
               成立於1993年的光明清潔企業社，由<strong>李金榮</strong>先生創立，
-              至今已有<strong>30年</strong>的專業經驗。我們專注於提供高品質的清潔用品，
+              至今已有<strong>35年</strong>的專業經驗。我們專注於提供高品質的清潔用品，
               從家用衛生紙到按摩護理用品，始終堅持品質第一的經營理念。
             </p>
             <p class="intro-description">
