@@ -2,6 +2,7 @@
 // 光明清潔企業社首頁組件
 import { ref } from 'vue'
 
+
 // 平滑滾動函數
 const smoothScrollTo = (targetId) => {
   const element = document.getElementById(targetId)
@@ -14,6 +15,7 @@ const smoothScrollTo = (targetId) => {
   }
 }
 
+
 // 產品資料
 const productCategories = ref([
   {
@@ -21,12 +23,13 @@ const productCategories = ref([
     category: '按摩護理用品',
     icon: '💆‍♀️',
     products: [
-      '油壓巾組合包',
-      '純天然按摩油（水性）',
-      '指壓乳液',
-      '嬰兒油（油性）',
-      '沐浴乳',
-      '熱敷霜'
+      { name: '1+2+1油壓包', image: '1+2+1油壓包.webp' },
+      { name: '康禮士水國油', image: '康禮士水國油.webp' },
+      { name: '康禮士護膚乳液', image: '康禮士護膚乳液.webp' },
+      { name: '水果油', image: '水果油.webp' },
+      { name: '沐浴乳', image: '沐浴乳.webp' },
+      { name: '康禮士熱敷霜', image: '康禮士熱敷霜.webp' },
+      { name: '潤膚洗手乳', image: '潤膚洗手乳.webp' }
     ]
   },
   {
@@ -34,33 +37,72 @@ const productCategories = ref([
     category: '衛生清潔用品',
     icon: '🧻',
     products: [
-      '衛生紙',
-      '紙褲',
-      '紙杯',
-      '紙拖鞋',
-      '洗潔精',
-      '漂白水',
-      '衣物柔軟精（淡香）'
+      { name: '優活衛生紙', image: '優活衛生紙.webp' },
+      { name: '優活大捲衛生紙', image: '優活大捲衛生紙.webp' },
+      { name: '優活小捲衛生紙', image: '優活小捲衛生紙.webp' },
+      { name: '小抽衛生紙(優活)', image: '小抽衛生紙(優活).webp' },
+      { name: '小抽衛生紙(采潔)', image: '小抽衛生紙(采潔).webp' },
+      { name: '抽取式衛生紙(嬌采)', image: '抽取式衛生紙(嬌采).webp' },
+      { name: '平板衛生紙', image: '平板衛生紙.webp' },
+      { name: '三采餐巾紙', image: '三采餐巾紙.webp' },
+      { name: '紙褲', image: '紙褲.webp' },
+      { name: '紙毛巾', image: '紙毛巾.webp' },
+      { name: '擦手紙(厚)', image: '擦手紙(厚).webp' },
+      { name: '醫療用墊紙', image: '醫療用墊紙.webp' }
     ]
   },
   {
     id: 3,
-    category: '毛巾寢具用品',
-    icon: '🛏️',
+    category: '清潔用品',
+    icon: '🧽',
     products: [
-      '浴巾',
-      '床巾',
-      '塑膠杯',
-      '茶包'
+      { name: '洗潔精', image: '洗潔精.webp' },
+      { name: '漂白水', image: '漂白水.webp' },
+      { name: '地板清潔劑', image: '地板清潔劑.webp' },
+      { name: '玻璃清潔劑', image: '玻璃清潔劑.webp' },
+      { name: '強效泡沫除油劑(焦炭剋星)', image: '強效泡沫除油劑(焦炭剋星).webp' },
+      { name: '衣物柔軟精(妙管家)', image: '衣物柔軟精(妙管家).webp' },
+      { name: '妙管家洗衣粉', image: '妙管家洗衣粉.webp' }
     ]
   },
   {
     id: 4,
-    category: '環保清潔用品',
-    icon: '♻️',
+    category: '毛巾寢具用品',
+    icon: '🛏️',
     products: [
-      '捲筒垃圾袋',
-      '芳香劑'
+      { name: '布織布浴巾', image: '布織布浴巾.webp' },
+      { name: '無塵紙浴巾', image: '無塵紙浴巾.webp' },
+      { name: '水針布美容毛巾', image: '水針布美容毛巾.webp' },
+      { name: '床巾', image: '床斤.webp' }
+    ]
+  },
+  {
+    id: 5,
+    category: '包裝用品',
+    icon: '📦',
+    products: [
+      { name: '垃圾袋', image: '垃圾袋.webp' },
+      { name: '捲筒清潔袋(超大)(黑色&灰色)', image: '捲筒清潔袋(超大)(黑色&灰色).webp' },
+      { name: '清潔袋', image: '清潔袋.webp' }
+    ]
+  },
+  {
+    id: 6,
+    category: '餐具用品',
+    icon: '🥤',
+    products: [
+      { name: '200cc紙杯(大&小)&205紙杯&塑膠杯', image: '200cc紙杯(大&小)&205紙杯&塑膠杯.webp' },
+      { name: '茶包(烏龍&茉香)', image: '茶包(烏龍&茉香).webp' },
+      { name: '春風', image: '春風.webp' }
+    ]
+  },
+  {
+    id: 7,
+    category: '口腔護理用品',
+    icon: '🦷',
+    products: [
+      { name: '白人漱口水', image: '白人漱口水.webp' },
+      { name: '白人漱口水(大瓶)', image: '白人漱口水(大瓶).webp' }
     ]
   }
 ])
@@ -88,6 +130,11 @@ const features = ref([
     description: '用心服務每一位客戶'
   }
 ])
+
+const getImageUrl = (imageName) => {
+  console.log(imageName)
+  return `/images/${imageName}`
+}
 </script>
 
 <template>
@@ -145,14 +192,26 @@ const features = ref([
             <div class="product-header">
               <div class="product-icon">{{ category.icon }}</div>
               <h3 class="product-category">{{ category.category }}</h3>
+              <p class="product-count">{{ category.products.length }} 種產品</p>
             </div>
-            <div class="product-list">
-              <ul>
-                <li v-for="product in category.products" :key="product">
-                  {{ product }}
-                </li>
-              </ul>
+            
+            <!-- 顯示代表產品圖片 -->
+            <div class="product-images">
+              <div 
+                v-for="product in category.products.slice(0, 4)" 
+                :key="product.name"
+                class="product-image-item"
+              >
+                <img style="display: block; width: 100%; height: auto;flex:1; border-radius: 8px; object-fit: cover;" :src="getImageUrl(product.image)" :alt="product.name" class="product-image" @error="handleImageError" />
+                <span class="product-name">{{ product.name }}</span>
+              </div>
             </div>
+            
+            <!-- 如果產品超過4個，顯示"查看更多" -->
+            <div v-if="category.products.length > 4" class="more-products">
+              還有 {{ category.products.length - 4 }} 種產品...
+            </div>
+            
             <div class="product-footer">
               <button @click="smoothScrollTo('contact')" class="product-btn">詳細諮詢</button>
             </div>
@@ -415,51 +474,78 @@ const features = ref([
 
 .product-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 2rem 1.5rem 1rem;
+  padding: 1.5rem;
   text-align: center;
   color: white;
 }
 
 .product-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .product-category {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.product-count {
+  font-size: 0.9rem;
+  opacity: 0.9;
   margin: 0;
 }
 
-.product-list {
+.product-images {
   flex: 1;
-  padding: 1.5rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
 }
 
-.product-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.product-image-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%;
 }
 
-.product-list li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #f0f0f0;
-  color: #555;
-  font-size: 0.95rem;
+.product-image-placeholder {
+  width: 80px;
+  height: 80px;
+  background: #f0f0f0;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
   display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 2rem;
 }
 
-.product-list li:last-child {
-  border-bottom: none;
+.product-image-placeholder:hover {
+  transform: scale(1.05);
 }
 
-.product-list li:before {
-  content: '✓';
-  color: #667eea;
-  font-weight: bold;
-  margin-right: 0.5rem;
+.product-name {
+  font-size: 0.75rem;
+  color: #555;
+  line-height: 1.2;
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.more-products {
+  padding: 0 1rem 1rem;
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
 }
 
 .product-footer {
@@ -586,6 +672,16 @@ const features = ref([
   .features-grid, .products-grid {
     grid-template-columns: 1fr;
   }
+  
+  .product-images {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .product-image-placeholder {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -618,6 +714,22 @@ const features = ref([
   
   .container {
     padding: 0 15px;
+  }
+  
+  .product-images {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .product-image-placeholder {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  
+  .product-name {
+    font-size: 0.7rem;
+    height: 2rem;
   }
 }
 </style>
