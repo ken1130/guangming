@@ -148,7 +148,7 @@ const values = ref([
               <div class="contact-icon">🕒</div>
               <div class="contact-details">
                 <h4>營業時間</h4>
-                <p>週一至週五 08:00-18:00</p>
+                <p>週一至週日 08:30-21:00</p>
               </div>
             </div>
           </div>
