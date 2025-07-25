@@ -241,7 +241,7 @@ const productCategories = ref([
     icon: '💆‍♀️',
     products: [
       { name: '1+2+1油壓包', image: '油壓包.webp' },
-      { name: '康禮士水國油', image: '康禮士水國油.webp' },
+      { name: '康禮士水果油', image: '康禮士水國油.webp' },
       { name: '水果油', image: '水果油.webp' },
       { name: '沐浴乳(無香味)', image: '沐浴乳.webp' },
     ]
