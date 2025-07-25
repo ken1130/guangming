@@ -910,7 +910,7 @@ const handleImageError = (event) => {
   }
   
   .product-image {
-    height: 60px; /* 手機版較小的圖片 */
+    height: 80px; /* 手機版放大圖片 */
   }
   
   .product-name {
