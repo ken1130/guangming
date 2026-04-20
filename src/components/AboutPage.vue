@@ -1,20 +1,23 @@
 <script setup>
 import { ref } from 'vue'
+import { yearsSinceFounding, yearsSinceFoundingZh } from '../utils/years'
+
+const years = yearsSinceFounding()
+const yearsZh = yearsSinceFoundingZh()
 
 const milestones = ref([
   { year: '1993', title: '光明清潔企業社創立', body: '李金榮先生於台中北屯創立光明清潔企業社，從衛生用品批發起家，深耕在地商家市場。' },
   { year: '2000', title: '業務擴展 · 全台中供應', body: '擴大產品線，增加工業用清潔用品供應，服務範圍涵蓋整個大台中區域。' },
   { year: '2010', title: '品質認證 · ISO 標準', body: '通過各項品質認證，多項清潔劑取得 ISO 認證，確保產品符合安全衛生標準。' },
   { year: '2015', title: '按摩護理用品產線', body: '因應北屯按摩產業蓬勃發展，擴充按摩油、乳液、毛巾寢具品項，服務上百家按摩會館。' },
-  { year: '2020', title: '環保轉型 · 永續承諾', body: '引進環保清潔用品與可分解袋材，響應綠色環保理念，與商家一同推動永續經營。' },
-  { year: '2028', title: '邁入第三十五載', body: '三十五年如一日，持續為飯店、按摩會館、商家企業提供最可靠的清潔用品與誠信服務。' }
+  { year: '2020', title: '環保轉型 · 永續承諾', body: '引進環保清潔用品與可分解袋材，響應綠色環保理念，與商家一同推動永續經營。' }
 ])
 
 const values = ref([
   { en: 'Quality',    zh: '品質', desc: '每一項進貨都親自挑選把關，耐用、耐髒、量足，才是商家要的。' },
   { en: 'Integrity',  zh: '誠信', desc: '不二價、不灌水、不推銷用不到的東西。做生意就是做人。' },
   { en: 'Reliable',   zh: '可靠', desc: '電話一通，常備品當日到貨。三十多年沒缺過貨，這是基本功。' },
-  { en: 'Longevity',  zh: '長久', desc: '我們不追快，追久。和老客戶一起走過三十五年，還想再走三十年。' }
+  { en: 'Longevity',  zh: '長久', desc: `我們不追快，追久。和老客戶一起走過${yearsZh}年，還想再走三十年。` }
 ])
 </script>
 
@@ -23,38 +26,38 @@ const values = ref([
     <!-- 品牌故事 Hero -->
     <section class="about-hero">
       <div class="container">
-        <div class="hero-grid">
-          <div>
-            <div class="eyebrow" style="margin-bottom:24px;">關於光明 · 品牌故事</div>
-            <h1 class="h-display hero-title">
-              一間開了<em>三十五年</em>的清潔用品行
-            </h1>
-            <p class="body-text hero-desc">
-              從一台小貨車、幾箱衛生紙開始，到今天服務全台中超過 500 家商戶——
-              我們做的不只是生意，是陪著在地商家一起走過三十五年的信任。
-            </p>
-            <p class="body-text hero-desc" style="margin-top:16px;">
-              位於台中市北屯區的我們，由<strong>李金榮</strong>先生於 1993 年創立，
-              專注於高品質清潔與衛生用品的 B2B 批發，服務飯店、按摩會館與在地商家企業。
-            </p>
+        <div class="hero-head">
+          <div class="eyebrow" style="margin-bottom:24px;">關於光明 · 品牌故事</div>
+          <h1 class="h-display hero-title">
+            一間開了<em>{{ yearsZh }}年</em>的清潔用品行
+          </h1>
+        </div>
+        <div class="hero-body">
+          <p class="body-text hero-desc">
+            從一台小貨車、幾箱衛生紙開始，到今天服務全台中超過 500 家商戶——
+            我們做的不只是生意，是陪著在地商家一起走過{{ yearsZh }}年的信任。
+          </p>
+          <p class="body-text hero-desc">
+            位於台中市北屯區的我們，由<strong>李金榮</strong>先生於 1993 年創立，
+            專注於高品質清潔與衛生用品的 B2B 批發，服務飯店、按摩會館與在地商家企業。
+          </p>
+        </div>
+        <div class="hero-facts">
+          <div class="fact">
+            <div class="fact-num">1993</div>
+            <div class="fact-label">創立年份</div>
           </div>
-          <div class="hero-visual">
-            <div class="hero-visual-frame">
-              <div class="hero-visual-inner">
-                <div class="visual-label-lg">[ Photo ]</div>
-                <div class="visual-label-sm">
-                  創辦人 · 李金榮先生<br/>
-                  1993 年店面老照片
-                </div>
-              </div>
-            </div>
-            <div class="seal-round hero-seal">
-              <div>
-                光明<br/>
-                <span class="seal-mono">EST · MCMXCIII</span><br/>
-                三十五載
-              </div>
-            </div>
+          <div class="fact">
+            <div class="fact-num">{{ years }}<span class="fact-unit">載</span></div>
+            <div class="fact-label">深耕台中</div>
+          </div>
+          <div class="fact">
+            <div class="fact-num">500<span class="fact-unit">+</span></div>
+            <div class="fact-label">合作商戶</div>
+          </div>
+          <div class="fact">
+            <div class="fact-num">6<span class="fact-unit">類</span></div>
+            <div class="fact-label">產品線</div>
           </div>
         </div>
       </div>
@@ -65,7 +68,7 @@ const values = ref([
       <div class="container">
         <div style="margin-bottom:56px;">
           <div class="eyebrow" style="margin-bottom:16px;">品牌歷程 · Timeline</div>
-          <h2 class="h-section">三十五年 · 一步一腳印</h2>
+          <h2 class="h-section">{{ yearsZh }}年 · 一步一腳印</h2>
         </div>
         <div class="timeline">
           <div class="timeline-line"></div>
@@ -93,30 +96,21 @@ const values = ref([
     <!-- 創辦人的話 -->
     <section class="founder-section">
       <div class="container">
-        <div class="founder-grid">
-          <div class="founder-visual">
-            <div class="founder-frame">
-              <div class="founder-frame-inner">
-                <div class="visual-label-lg founder-label">[ Portrait ]</div>
-                <div class="founder-mono">創辦人 · 李 金 榮</div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div class="eyebrow founder-eyebrow">創辦人的話 · Founder's Note</div>
-            <h2 class="founder-title">
-              做生意，品質是<em>根</em>，<br/>誠信是<em>魂</em>
-            </h2>
-            <div class="founder-body">
-              <p>三十五年前，我抱著一股衝勁開始這份生意，那時候只想著一件事——要讓台中的商家買到最實在的東西。</p>
-              <p>幾十年過去了，配合的商家很多都是一起老去的朋友。他們相信我不是因為價格最便宜，而是因為東西從來不會出包、叫貨從來不會耽誤。</p>
-              <p>時代在變，做生意的方式也要跟著變。但核心的東西沒變：賣好東西、說實在話、做長久的生意。這就是光明的招牌。</p>
-            </div>
-            <div class="founder-sign">
-              <div class="sign-en">Li Jin-Rong</div>
-              <div class="sign-zh">創辦人 · 李金榮</div>
-            </div>
-          </div>
+        <div class="founder-head">
+          <div class="eyebrow founder-eyebrow">創辦人的話 · Founder's Note</div>
+          <div class="founder-quote-mark">“</div>
+          <h2 class="founder-title">
+            做生意，品質是<em>根</em>，誠信是<em>魂</em>
+          </h2>
+        </div>
+        <div class="founder-body">
+          <p>{{ yearsZh }}年前，我抱著一股衝勁開始這份生意，那時候只想著一件事——要讓台中的商家買到最實在的東西。</p>
+          <p>幾十年過去了，配合的商家很多都是一起老去的朋友。他們相信我不是因為價格最便宜，而是因為東西從來不會出包、叫貨從來不會耽誤。</p>
+          <p>時代在變，做生意的方式也要跟著變。但核心的東西沒變：賣好東西、說實在話、做長久的生意。這就是光明的招牌。</p>
+        </div>
+        <div class="founder-sign">
+          <div class="sign-en">Li Jin-Rong</div>
+          <div class="sign-zh">創辦人 · 李金榮</div>
         </div>
       </div>
     </section>
@@ -126,7 +120,7 @@ const values = ref([
       <div class="container">
         <div style="margin-bottom:56px;">
           <div class="eyebrow" style="margin-bottom:16px;">我們的信念 · Values</div>
-          <h2 class="h-section">四件事，三十五年沒變過</h2>
+          <h2 class="h-section">四件事，{{ yearsZh }}年沒變過</h2>
         </div>
         <div class="values-grid">
           <div
@@ -191,7 +185,7 @@ const values = ref([
                   <span class="cb-en">Visit Us</span>
                 </div>
                 <div class="cb-highlight">昌平路 2 段 10 巷 72 弄 113 號</div>
-                <p class="cb-body">台中市北屯區，歡迎實際來看看商品、談談合作。老客戶來店咖啡招待。</p>
+                <p class="cb-body">台中市北屯區，歡迎實際來看看商品、談談合作。</p>
                 <div class="cb-meta">門市備有樣品 · 北屯區地標</div>
               </div>
             </div>
@@ -268,64 +262,58 @@ const values = ref([
 <style scoped>
 /* === 品牌故事 Hero === */
 .about-hero {
-  padding: 72px 0 56px;
+  padding: 80px 0 72px;
   background: var(--cream);
   border-bottom: 1px solid var(--ink-line);
 }
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
+.hero-head { max-width: 820px; margin-bottom: 40px; }
 .hero-title {
-  margin-bottom: 24px;
+  margin-bottom: 0;
   font-size: clamp(36px, 4.5vw, 60px);
 }
-.hero-desc { font-size: 16px; max-width: 520px; }
+.hero-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  max-width: 1040px;
+  margin-bottom: 56px;
+}
+.hero-desc { font-size: 16px; }
 .hero-desc strong { color: var(--ink); font-weight: 600; }
 
-.hero-visual {
-  position: relative;
-  aspect-ratio: 1 / 1;
-}
-.hero-visual-frame {
-  position: absolute;
-  inset: 0;
-  background: var(--paper-3);
-  background-image: repeating-linear-gradient(45deg, var(--paper-3) 0 14px, var(--paper-2) 14px 28px);
+.hero-facts {
   display: grid;
-  place-items: center;
-  border: 1px solid var(--ink-line);
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--ink-line);
+  border-bottom: 1px solid var(--ink-line);
 }
-.hero-visual-inner { text-align: center; }
-.visual-label-lg {
-  font-family: var(--display);
-  font-size: 20px;
+.fact {
+  padding: 28px 24px;
+  border-right: 1px solid var(--ink-line);
+  text-align: left;
+}
+.fact:last-child { border-right: none; }
+.fact-num {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 44px;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.fact-unit {
+  font-family: var(--serif);
+  font-size: 18px;
+  color: var(--ink-soft);
+  margin-left: 2px;
+  font-weight: 500;
+}
+.fact-label {
+  font-family: var(--serif);
+  font-size: 12px;
   color: var(--ink-mute);
-  letter-spacing: 0.1em;
-  margin-bottom: 12px;
-  font-style: italic;
-}
-.visual-label-sm {
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-mute);
-  letter-spacing: 0.2em;
-  line-height: 1.8;
-}
-.hero-seal {
-  position: absolute;
-  right: -20px;
-  bottom: -20px;
-  width: 130px;
-  height: 130px;
-}
-.seal-mono {
-  font-family: var(--display);
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  font-style: italic;
+  letter-spacing: 0.25em;
 }
 
 /* === 發展歷程 === */
@@ -382,60 +370,58 @@ const values = ref([
 .founder-section {
   background: var(--navy-deep);
   color: var(--cream);
-  padding: 96px 0;
+  padding: 104px 0;
 }
-.founder-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 72px;
-  align-items: center;
+.founder-head {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 44px;
+  position: relative;
 }
-.founder-visual { position: relative; }
-.founder-frame {
-  aspect-ratio: 4 / 5;
-  background: rgba(245,239,225,0.08);
-  background-image: repeating-linear-gradient(45deg, rgba(245,239,225,0.04) 0 12px, rgba(245,239,225,0.08) 12px 24px);
-  border: 1px solid rgba(245,239,225,0.2);
-  display: grid;
-  place-items: center;
-}
-.founder-frame-inner { text-align: center; color: rgba(245,239,225,0.6); }
-.founder-label { color: rgba(245,239,225,0.6); }
-.founder-mono {
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-}
-.founder-eyebrow { color: rgba(245,239,225,0.6); margin-bottom: 20px; }
+.founder-eyebrow { color: rgba(245,239,225,0.6); margin-bottom: 28px; }
 .founder-eyebrow::before { background: rgba(245,239,225,0.6); }
+.founder-quote-mark {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 96px;
+  line-height: 0.8;
+  color: #d9b97a;
+  opacity: 0.85;
+  margin-bottom: 8px;
+}
 .founder-title {
   font-family: var(--serif);
-  font-size: clamp(28px, 3.8vw, 48px);
+  font-size: clamp(30px, 4vw, 52px);
   font-weight: 500;
-  line-height: 1.25;
-  margin-bottom: 36px;
+  line-height: 1.3;
   letter-spacing: 0.02em;
+  text-wrap: balance;
 }
 .founder-title em {
   font-family: var(--display);
   font-style: italic;
   color: #d9b97a;
+  padding: 0 4px;
 }
 .founder-body {
+  max-width: 720px;
+  margin: 0 auto;
   font-size: 16px;
-  line-height: 1.85;
+  line-height: 1.95;
   color: rgba(245,239,225,0.85);
   text-wrap: pretty;
 }
-.founder-body p { margin-bottom: 18px; }
+.founder-body p { margin-bottom: 22px; }
 .founder-body p:last-child { margin-bottom: 0; }
 .founder-sign {
-  margin-top: 40px;
-  padding-top: 24px;
+  max-width: 720px;
+  margin: 40px auto 0;
+  padding-top: 28px;
   border-top: 1px solid rgba(245,239,225,0.2);
   display: flex;
   align-items: center;
   gap: 20px;
+  justify-content: flex-end;
 }
 .sign-en {
   font-family: var(--display);
@@ -653,10 +639,7 @@ const values = ref([
 
 /* === 響應式 === */
 @media (max-width: 960px) {
-  .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-  .hero-visual { max-width: 420px; }
-  .founder-grid { grid-template-columns: 1fr; gap: 48px; }
-  .founder-visual { max-width: 360px; }
+  .hero-body { grid-template-columns: 1fr; gap: 20px; }
   .values-grid { grid-template-columns: repeat(2, 1fr); }
   .value-cell:nth-child(2) { border-right: none; }
   .value-cell:nth-child(1), .value-cell:nth-child(2) { border-bottom: 1px solid var(--ink-line); }
@@ -668,18 +651,37 @@ const values = ref([
   }
 }
 @media (max-width: 720px) {
-  .timeline-line { left: 28%; }
-  .timeline-row { grid-template-columns: 1fr 1px 3fr; gap: 24px; }
-  .timeline-year { font-size: 32px; }
+  .timeline-line { left: 26%; }
+  .timeline-row { grid-template-columns: 1fr 1px 3fr; gap: 20px; padding: 28px 0; }
+  .timeline-year { font-size: 30px; }
+  .timeline-title { font-size: 19px; }
+  .contact-block { grid-template-columns: auto 1fr; gap: 20px; }
+  .cb-num { font-size: 28px; min-width: 40px; }
+  .cb-highlight { font-size: 20px; }
+  .store-card { padding: 20px 22px; }
+  .store-label { min-width: 48px; }
 }
 @media (max-width: 560px) {
   .values-grid { grid-template-columns: 1fr; }
-  .value-cell { border-right: none; border-bottom: 1px solid var(--ink-line); }
+  .value-cell { border-right: none; border-bottom: 1px solid var(--ink-line); padding: 32px 24px; }
   .value-cell:last-child { border-bottom: none; }
+  .value-zh { font-size: 26px; }
   .commitment-grid { grid-template-columns: 1fr; }
-  .commitment-item { border-right: none; border-bottom: 1px solid rgba(245,239,225,0.2); }
+  .commitment-item { border-right: none; border-bottom: 1px solid rgba(245,239,225,0.2); padding: 32px 24px; }
   .commitment-item:last-child { border-bottom: none; }
-  .hero-visual { max-width: 320px; margin: 0 auto; }
-  .founder-visual { max-width: 280px; }
+  .hero-facts { grid-template-columns: repeat(2, 1fr); }
+  .fact:nth-child(2) { border-right: none; }
+  .fact:nth-child(1), .fact:nth-child(2) { border-bottom: 1px solid var(--ink-line); }
+  .fact-num { font-size: 36px; }
+  .founder-quote-mark { font-size: 72px; }
+  .timeline-year { font-size: 26px; }
+  .timeline-line { left: 30%; }
+  .timeline-row { grid-template-columns: 1fr 1px 2.4fr; }
+  .sign-en { font-size: 24px; }
+  .founder-section { padding: 72px 0; }
+  .commitment-section { padding: 72px 0; }
+  .values-section { padding: 72px 0; }
+  .timeline-section { padding: 72px 0; }
+  .contact-section { padding: 72px 0; }
 }
 </style>

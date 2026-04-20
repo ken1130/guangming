@@ -35,13 +35,13 @@
         </div>
 
         <div class="hero-center">
-          <div class="hero-subtitle">三 十 五 載 · 誠 信 批 發</div>
+          <div class="hero-subtitle">{{ yearsZhSpaced }} 載 · 誠 信 批 發</div>
           <h1 class="hero-title">專業清潔衛生用品</h1>
 
           <div class="hero-rule">
             <span class="hairline"></span>
             <span class="hero-rule-label">台中 · 光明</span>
-            <span class="seal-stamp" style="font-size:11px; transform:rotate(-3deg); white-space:nowrap;">老字號</span>
+            <span class="seal-stamp" style="font-size:11px; white-space:nowrap;">老字號</span>
             <span class="hairline"></span>
           </div>
 
@@ -61,7 +61,7 @@
 
         <div class="stat-strip">
           <div class="stat">
-            <div class="stat-num-row"><span class="stat-num">35</span><span class="stat-unit">年</span></div>
+            <div class="stat-num-row"><span class="stat-num">{{ years }}</span><span class="stat-unit">年</span></div>
             <div class="stat-label">專業經驗</div>
           </div>
           <div class="stat">
@@ -85,7 +85,7 @@
       <div class="container quote-inner">
         <div class="quote-mark">“</div>
         <div class="quote-body">
-          <p>品質第一，誠信為本；<br/>三十五年如一日，為台中商家提供最可靠的清潔用品。</p>
+          <p>品質第一，誠信為本；<br/>{{ yearsZh }}年如一日，為台中商家提供最可靠的清潔用品。</p>
           <div class="quote-author">—— 創辦人 · 李 金 榮</div>
         </div>
         <div class="seal-stamp" style="font-size:11px;">誠信經營</div>
@@ -140,7 +140,7 @@
         <div class="why-grid">
           <div class="why-left">
             <div class="eyebrow" style="margin-bottom:20px;">為何選擇光明 · 第 O2 章</div>
-            <h2 class="h-section">三十五年<br/>不是口號</h2>
+            <h2 class="h-section">{{ yearsZh }}年<br/>不是口號</h2>
             <p class="body-text" style="margin-top:24px; max-width:380px;">
               在這個什麼都講速成的年代，我們只做一件事：把清潔用品這門生意做好、做久。
             </p>
@@ -208,6 +208,51 @@
       </div>
     </section>
 
+    <!-- 客戶評價 -->
+    <section class="reviews-section">
+      <div class="container">
+        <div class="reviews-head">
+          <div>
+            <div class="eyebrow" style="margin-bottom:20px;">客戶評價 · 第 O3 章</div>
+            <h2 class="h-section">來自台中商家的<br/>真實回饋</h2>
+          </div>
+          <div class="reviews-rating">
+            <div class="rating-text">
+              <div class="rating-stars">
+                <svg v-for="n in 5" :key="n" width="14" height="14" viewBox="0 0 24 24" fill="var(--seal)">
+                  <path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1z"/>
+                </svg>
+              </div>
+              <div class="rating-meta">GOOGLE 4.9 · 112 則評論</div>
+            </div>
+            <div class="rating-num">4.9</div>
+          </div>
+        </div>
+
+        <div class="reviews-grid">
+          <div
+            v-for="(r, i) in reviews"
+            :key="i"
+            class="review-card"
+          >
+            <div class="review-head">
+              <div class="review-stars">
+                <svg v-for="n in r.stars" :key="n" width="14" height="14" viewBox="0 0 24 24" fill="var(--seal)">
+                  <path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18.2 22 12 18.3 5.8 22l1.7-7.2L2 10l7.1-1.1z"/>
+                </svg>
+              </div>
+              <div class="review-date">{{ r.date }}</div>
+            </div>
+            <p class="review-text">「{{ r.text }}」</p>
+            <div class="review-foot">
+              <div class="review-name">{{ r.name }}</div>
+              <div class="review-role">{{ r.role }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- CTA 聯絡區 -->
     <section id="contact" class="cta-banner">
       <div class="container cta-inner">
@@ -250,6 +295,11 @@
 <script setup>
 // 光明清潔企業社首頁組件
 import { ref, onMounted, onUnmounted } from 'vue'
+import { yearsSinceFounding, yearsSinceFoundingZh, yearsSinceFoundingZhSpaced } from '../utils/years'
+
+const years = yearsSinceFounding()
+const yearsZh = yearsSinceFoundingZh()
+const yearsZhSpaced = yearsSinceFoundingZhSpaced()
 
 // 圖片放大模態視窗
 const showImageModal = ref(false)
@@ -377,11 +427,19 @@ const productCategories = ref([
   }
 ])
 
+// 客戶評價
+const reviews = [
+  { stars: 5, text: '合作十幾年了，李老闆做生意實在，叫貨從沒缺過。衛生紙品質穩定，我們飯店一直用同一款。', name: '陳小姐', role: '某汽車旅館 採購經理', date: '2025.08' },
+  { stars: 5, text: '按摩油系列選擇多，價格合理。老闆很熱心，初次進貨還給我們介紹最適合的品項，像老朋友在照顧。', name: '林師傅', role: '北屯按摩會館 負責人', date: '2025.06' },
+  { stars: 5, text: '北屯這邊的商家幾乎都跟光明拿貨，品質有保障，老闆人又好，有問題隨時可以打電話問。', name: '王先生', role: '餐廳', date: '2025.03' },
+  { stars: 5, text: '大量訂購垃圾袋，袋王的品質比別家好很多，規格齊全從 S 到 XXL 都有。下次還會繼續訂。', name: '李小姐', role: '診所', date: '2024.12' }
+]
+
 // 為何選擇光明
 const whyItems = [
-  { num: '壹', title: '三十五載不變的堅持', desc: '自 1993 年創立，深耕台中。時間會淘汰所有浮誇，留下來的都是真材實料。' },
+  { num: '壹', title: `${yearsZh}載不變的堅持`, desc: '自 1993 年創立，深耕台中。時間會淘汰所有浮誇，留下來的都是真材實料。' },
   { num: '貳', title: '在地深耕 · 即時供貨', desc: '門市設於台中北屯，服務範圍涵蓋大台中地區。電話一通，常備品最快當日送達。' },
-  { num: '參', title: 'B2B 批發 · 誠信報價', desc: '專注商家、飯店、按摩店批發。長期合作提供穩定價格，量大從優，不二價、不灌水。' },
+  { num: '參', title: 'B2B 批發 · 誠信報價', desc: '專注商家、診所、按摩店批發。長期合作提供穩定價格，量大從優，不二價、不灌水。' },
   { num: '肆', title: '全品項一站採購', desc: '衛生紙、紙杯、垃圾袋、毛巾、按摩油—一家就搞定，不需要比十家、問十家。' }
 ]
 
@@ -679,7 +737,6 @@ const handleImageError = (event) => {
 .stamp-navy {
   border-color: var(--navy) !important;
   color: var(--navy) !important;
-  transform: rotate(2deg);
 }
 .stamp-navy::before, .stamp-navy::after { background: var(--navy) !important; }
 
@@ -785,6 +842,90 @@ const handleImageError = (event) => {
   padding: 12px 14px;
   line-height: 1.4;
   text-align: left;
+}
+
+/* === 客戶評價 === */
+.reviews-section { padding: 96px 0; }
+.reviews-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 56px;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.reviews-rating {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.rating-text { text-align: right; }
+.rating-stars {
+  display: flex;
+  gap: 2px;
+  justify-content: flex-end;
+  margin-bottom: 4px;
+}
+.rating-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.1em;
+}
+.rating-num {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 56px;
+  color: var(--ink);
+  line-height: 1;
+  border-left: 1px solid var(--ink-line);
+  padding-left: 20px;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.review-card {
+  background: var(--cream);
+  border: 1px solid var(--ink-line);
+  padding: 28px 30px;
+}
+.review-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.review-stars { display: flex; gap: 2px; }
+.review-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-mute);
+}
+.review-text {
+  font-family: var(--serif);
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--ink);
+  margin-bottom: 22px;
+  text-wrap: pretty;
+}
+.review-foot {
+  border-top: 1px solid var(--ink-line);
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.review-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 600;
+}
+.review-role {
+  font-size: 12px;
+  color: var(--ink-mute);
 }
 
 /* === CTA 聯絡區 === */
@@ -944,25 +1085,44 @@ const handleImageError = (event) => {
   .why-left { position: static; }
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
 }
+@media (max-width: 900px) {
+  .hero-title { white-space: normal; }
+}
 @media (max-width: 720px) {
   .hero { padding: 48px 0 72px; }
   .hero-meta { margin-bottom: 48px; }
-  .hero-title { white-space: normal; }
+  .hero-subtitle { letter-spacing: 0.8em; padding-left: 0.8em; }
   .quote-inner { grid-template-columns: 1fr; gap: 24px; text-align: left; }
   .quote-mark { font-size: 64px; }
   .quote-body p { font-size: 20px; }
   .stat-strip { grid-template-columns: repeat(2, 1fr); }
+  .stat { padding: 22px 12px; }
+  .stat-num { font-size: 36px; }
   .stat:nth-child(2) { border-right: none; }
   .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--ink-line); }
   .cat-grid { grid-template-columns: 1fr; }
   .cta-divider { display: none; }
   .cta-contacts { gap: 28px; }
   .cat-block-title { font-size: 24px; }
+  .section-head { gap: 20px; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .reviews-head { gap: 24px; }
+  .rating-num { font-size: 44px; }
 }
 @media (max-width: 480px) {
   .hero-vertical { display: none; }
+  .hero-subtitle { letter-spacing: 0.5em; padding-left: 0.5em; font-size: 12px; }
+  .hero-rule { gap: 12px; }
+  .hairline { flex-basis: 40px; }
+  .hero-rule-label { font-size: 13px; letter-spacing: 0.25em; padding-left: 0.25em; }
+  .hero-desc { font-size: 15px; }
+  .stat-num { font-size: 30px; }
+  .stat-label { font-size: 11px; letter-spacing: 0.12em; }
   .product-images { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .product-name { font-size: 12px; padding: 10px; }
+  .cta-title { font-size: 28px; }
+  .cta-contacts { gap: 22px; }
+  .cta-c-big { font-size: 18px; }
   .modal-close-btn { top: -44px; right: -8px; width: 34px; height: 34px; font-size: 20px; }
 }
 </style>

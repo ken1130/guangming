@@ -1,8 +1,10 @@
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
+import { yearsSinceFoundingZh } from './utils/years'
 
 const router = useRouter()
 const route = useRoute()
+const yearsZh = yearsSinceFoundingZh()
 
 const goto = (path, hash) => {
   if (hash) {
@@ -72,7 +74,7 @@ const isActive = (path) => route.path === path
             <div class="footer-brand-name">光明清潔企業社</div>
             <div class="footer-brand-en">GUANG MING CLEANING · EST. 1993</div>
             <p class="footer-desc">
-              三十五載專注於清潔與衛生用品批發，服務全台中飯店、按摩會館、商家企業。品質第一，誠信為本。
+              {{ yearsZh }}載專注於清潔與衛生用品批發，服務全台中飯店、按摩會館、商家企業。品質第一，誠信為本。
             </p>
           </div>
           <div class="footer-col">
@@ -155,6 +157,7 @@ html, body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: clip;
 }
 
 html { scroll-behavior: smooth; }
@@ -343,7 +346,6 @@ section { padding: 80px 0; }
   font-size: 13px;
   letter-spacing: 0.2em;
   background: transparent;
-  transform: rotate(-2deg);
   position: relative;
 }
 .seal-stamp::before, .seal-stamp::after {
@@ -369,7 +371,6 @@ section { padding: 80px 0; }
   letter-spacing: 0.15em;
   position: relative;
   background: var(--cream);
-  transform: rotate(-6deg);
 }
 .seal-round::before {
   content: "";
