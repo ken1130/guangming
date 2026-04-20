@@ -375,7 +375,7 @@ const productCategories = ref([
     id: 3,
     category: '環保垃圾袋',
     en: 'Eco Bags',
-    desc: '袋王系列 S / M / L / XL / XXL 全尺寸供應',
+    desc: 'S / M / L / XL / XXL 全尺寸供應',
     products: [
       { name: '垃圾袋(小)', image: '垃圾袋小.jpg' },
       { name: '垃圾袋(中)', image: '垃圾袋中.jpg' },
