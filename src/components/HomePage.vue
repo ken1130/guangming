@@ -3,12 +3,12 @@
     <!-- 圖片放大模態視窗 -->
     <div v-if="showImageModal" class="image-modal-overlay" @click="closeImageModal">
       <div class="image-modal" @click.stop>
-        <button class="modal-close-btn" @click="closeImageModal">
+        <button class="modal-close-btn" @click="closeImageModal" aria-label="關閉">
           <span>&times;</span>
         </button>
-        <img 
-          :src="modalImage.src" 
-          :alt="modalImage.alt" 
+        <img
+          :src="modalImage.src"
+          :alt="modalImage.alt"
           class="modal-image"
           @error="handleImageError"
         />
@@ -20,117 +20,227 @@
     </div>
 
     <!-- 英雄區塊 -->
-    <section class="hero-section">
-      <div class="container">
-        <div class="hero-content">
-          <h1 class="hero-title">光明清潔企業社</h1>
-          <p class="hero-subtitle">35年專業經驗 · 品質值得信賴</p>
-          <p class="hero-description">
-            專業提供各式清潔用品，從按摩護理用品到衛生清潔用品，滿足您的各種需求
+    <section class="hero">
+      <div class="vertical-zh hero-vertical" aria-hidden="true">
+        光明清潔企業社 · 台中北屯 · 自 一九九三 年
+      </div>
+      <div class="container hero-inner">
+        <div class="hero-meta">
+          <div class="eyebrow">創立於 1993 · 台中北屯</div>
+          <div class="hero-meta-right">
+            <span>N0 · 001</span>
+            <span class="dot"></span>
+            <span>ESTABLISHED MCMXCIII</span>
+          </div>
+        </div>
+
+        <div class="hero-center">
+          <div class="hero-subtitle">三 十 五 載 · 誠 信 批 發</div>
+          <h1 class="hero-title">專業清潔衛生用品</h1>
+
+          <div class="hero-rule">
+            <span class="hairline"></span>
+            <span class="hero-rule-label">台中 · 光明</span>
+            <span class="seal-stamp" style="font-size:11px; transform:rotate(-3deg); white-space:nowrap;">老字號</span>
+            <span class="hairline"></span>
+          </div>
+
+          <p class="hero-desc body-text">
+            自 1993 年由<strong>李金榮</strong>先生創立，光明清潔企業社專注於提供高品質的清潔與衛生用品。
+            從家用衛生紙、環保垃圾袋，到飯店毛巾寢具、按摩護理油品——始終堅持品質第一，
+            深耕台中 B2B 批發市場。
           </p>
-          <div class="hero-actions">
-            <button @click="smoothScrollTo('products')" class="btn-primary">查看產品</button>
-            <button @click="smoothScrollTo('contact')" class="btn-secondary">聯絡我們</button>
+
+          <div class="hero-ctas">
+            <button class="btn btn-primary" @click="smoothScrollTo('products')">
+              瀏覽產品目錄 <span class="arrow-e">→</span>
+            </button>
+            <a href="tel:04-22416726" class="btn btn-outline">撥打詢價專線</a>
           </div>
         </div>
-        <div class="hero-image">
-          <div class="hero-placeholder">
-            🧹 專業清潔用品供應商
+
+        <div class="stat-strip">
+          <div class="stat">
+            <div class="stat-num-row"><span class="stat-num">35</span><span class="stat-unit">年</span></div>
+            <div class="stat-label">專業經驗</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num-row"><span class="stat-num">6</span><span class="stat-unit">大類</span></div>
+            <div class="stat-label">產品線</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num-row"><span class="stat-num">500+</span><span class="stat-unit">家</span></div>
+            <div class="stat-label">合作商家</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num-row"><span class="stat-num">4.9</span><span class="stat-unit">★</span></div>
+            <div class="stat-label">Google 評分</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 公司特色 -->
-    <section class="features-section">
-      <div class="container">
-        <h2 class="section-title">為什麼選擇我們</h2>
-        <div class="features-grid">
-          <div 
-            v-for="feature in features" 
-            :key="feature.title"
-            class="feature-card"
-          >
-            <div class="feature-icon">{{ feature.icon }}</div>
-            <h3 class="feature-title">{{ feature.title }}</h3>
-            <p class="feature-description">{{ feature.description }}</p>
-          </div>
+    <!-- 創辦人引言 -->
+    <section class="intro-quote">
+      <div class="container quote-inner">
+        <div class="quote-mark">“</div>
+        <div class="quote-body">
+          <p>品質第一，誠信為本；<br/>三十五年如一日，為台中商家提供最可靠的清潔用品。</p>
+          <div class="quote-author">—— 創辦人 · 李 金 榮</div>
         </div>
+        <div class="seal-stamp" style="font-size:11px;">誠信經營</div>
       </div>
     </section>
 
-    <!-- 主要產品 -->
+    <!-- 產品總覽區塊 -->
     <section id="products" class="products-section">
       <div class="container">
-        <h2 class="section-title">產品分類</h2>
-        <div class="products-grid">
-          <div 
-            v-for="category in productCategories" 
+        <div class="section-head">
+          <div>
+            <div class="eyebrow" style="margin-bottom:20px;">產品目錄 · 第 O1 章</div>
+            <h2 class="h-section">從採購到補貨<br/>我們都是你的<em>老班底</em></h2>
+          </div>
+          <a href="#products-detail" class="btn btn-outline" @click.prevent="smoothScrollTo('products-detail')">
+            看完整目錄 <span class="arrow-e">→</span>
+          </a>
+        </div>
+
+        <div class="cat-grid">
+          <div
+            v-for="(category, idx) in productCategories"
             :key="category.id"
-            class="product-card"
+            class="cat-card"
+            @click="smoothScrollTo('cat-' + category.id)"
           >
-            <div class="product-header">
-              <div class="product-icon">{{ category.icon }}</div>
-              <h3 class="product-category">{{ category.category }}</h3>
-              <p class="product-count">{{ category.products.length }} 種產品</p>
+            <div class="cat-img-wrap">
+              <img
+                :src="getImageUrl(category.products[0].image)"
+                :alt="category.category"
+                class="cat-img"
+                @error="handleImageError"
+              />
+              <div class="cat-img-badge">0{{ idx + 1 }} / 0{{ productCategories.length }}</div>
             </div>
-            
-            <!-- 顯示所有產品圖片 -->
-            <div class="product-images">
-              <div 
-                v-for="product in category.products" 
-                :key="product.name"
-                class="product-image-item"
-              >
-                <img 
-                  :src="getImageUrl(product.image)" 
-                  :alt="product.name" 
-                  class="product-image clickable-image" 
-                  @error="handleImageError"
-                  @click="openImageModal(product.image, product.name)"
-                />
-                <span class="product-name">{{ product.name }}</span>
+            <div class="cat-body">
+              <div class="cat-title-row">
+                <h3 class="cat-title">{{ category.category }}</h3>
+                <span class="cat-count">{{ category.products.length }} 項</span>
               </div>
-            </div>
-            
-            <div class="product-footer">
-              <button @click="smoothScrollTo('contact')" class="product-btn">詳細諮詢</button>
+              <div class="cat-en">{{ category.en }}</div>
+              <p class="cat-desc">{{ category.desc }}</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 聯絡資訊 -->
-    <section id="contact" class="contact-section">
+    <!-- 為何選擇光明 -->
+    <section class="why">
       <div class="container">
-        <h2 class="section-title">聯絡我們</h2>
-        <div class="contact-info-grid">
-          <div class="contact-item">
-            <div class="contact-icon">📍</div>
-            <div class="contact-details">
-              <h4>公司地址</h4>
-              <p>台中市北屯區昌平路2段10巷72弄113號1樓</p>
+        <div class="why-grid">
+          <div class="why-left">
+            <div class="eyebrow" style="margin-bottom:20px;">為何選擇光明 · 第 O2 章</div>
+            <h2 class="h-section">三十五年<br/>不是口號</h2>
+            <p class="body-text" style="margin-top:24px; max-width:380px;">
+              在這個什麼都講速成的年代，我們只做一件事：把清潔用品這門生意做好、做久。
+            </p>
+            <div class="why-stamps">
+              <div class="seal-stamp">老字號</div>
+              <div class="seal-stamp stamp-navy">台中深耕</div>
             </div>
           </div>
-          <div class="contact-item">
-            <div class="contact-icon">📞</div>
-            <div class="contact-details">
-              <h4>聯絡電話</h4>
-              <p>04-22416726</p>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📱</div>
-            <div class="contact-details">
-              <h4>手機號碼</h4>
-              <p>0988-335-658</p>
+          <div class="why-right">
+            <div
+              v-for="(item, i) in whyItems"
+              :key="i"
+              class="why-item"
+              :class="{ 'no-border': i === whyItems.length - 1 }"
+            >
+              <div class="why-num">{{ item.num }}</div>
+              <div>
+                <h3 class="why-title">{{ item.title }}</h3>
+                <p class="body-text" style="font-size:15px;">{{ item.desc }}</p>
+              </div>
             </div>
           </div>
         </div>
-        <div class="contact-actions">
-          <a href="tel:04-22416726" class="btn-primary">撥打電話</a>
-          <a href="tel:0988335658" class="btn-secondary">手機聯絡</a>
+      </div>
+    </section>
+
+    <!-- 完整產品目錄 (按類別) -->
+    <section id="products-detail" class="products-detail">
+      <div class="container">
+        <div class="eyebrow" style="margin-bottom:16px;">完整產品目錄 · Full Catalog</div>
+        <h2 class="h-section" style="margin-bottom:48px;">六大類 · 全品項一覽</h2>
+
+        <div
+          v-for="category in productCategories"
+          :id="'cat-' + category.id"
+          :key="category.id"
+          class="cat-block"
+        >
+          <div class="cat-block-head">
+            <div>
+              <div class="cat-block-en">{{ category.en }}</div>
+              <h3 class="cat-block-title">{{ category.category }}</h3>
+            </div>
+            <div class="cat-block-meta">{{ category.products.length }} 項商品</div>
+          </div>
+          <div class="product-images">
+            <div
+              v-for="product in category.products"
+              :key="product.name"
+              class="product-image-item"
+              @click="openImageModal(product.image, product.name)"
+            >
+              <div class="product-image-wrap">
+                <img
+                  :src="getImageUrl(product.image)"
+                  :alt="product.name"
+                  class="product-image"
+                  @error="handleImageError"
+                />
+              </div>
+              <span class="product-name">{{ product.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA 聯絡區 -->
+    <section id="contact" class="cta-banner">
+      <div class="container cta-inner">
+        <div class="cta-eyebrow">—— 即刻開始合作 ——</div>
+        <h2 class="cta-title">
+          有任何清潔用品需求，<br/>
+          <em>打通電話</em>就有答案
+        </h2>
+        <p class="cta-desc">
+          無論是長期配合的飯店、按摩會館，或是剛起步的小店家，都歡迎來電詢問。我們會根據你的需求提供最合適的報價。
+        </p>
+        <div class="cta-contacts">
+          <div class="cta-contact">
+            <div class="cta-c-icon">TEL</div>
+            <div class="cta-c-big">04-22416726</div>
+            <div class="cta-c-small">週一至週日 08:30 – 21:00</div>
+          </div>
+          <div class="cta-divider"></div>
+          <div class="cta-contact">
+            <div class="cta-c-icon">MOBILE</div>
+            <div class="cta-c-big">0988-335-658</div>
+            <div class="cta-c-small">手機聯絡 · 隨時可撥</div>
+          </div>
+          <div class="cta-divider"></div>
+          <div class="cta-contact">
+            <div class="cta-c-icon">ADDR</div>
+            <div class="cta-c-big">昌平路 2 段 10 巷</div>
+            <div class="cta-c-small">台中市北屯區 · 72 弄 113 號 1 樓</div>
+          </div>
+        </div>
+        <div class="cta-actions">
+          <a href="tel:04-22416726" class="btn btn-seal">撥打電話詢價 <span class="arrow-e">→</span></a>
+          <router-link to="/about" class="btn btn-outline cta-outline" @click="scrollTop">查看完整聯絡資訊</router-link>
         </div>
       </div>
     </section>
@@ -139,17 +249,12 @@
 
 <script setup>
 // 光明清潔企業社首頁組件
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
-// 圖片放大模態視窗相關
+// 圖片放大模態視窗
 const showImageModal = ref(false)
-const modalImage = ref({
-  src: '',
-  alt: '',
-  name: ''
-})
+const modalImage = ref({ src: '', alt: '', name: '' })
 
-// 打開圖片放大模態視窗
 const openImageModal = (imageName, productName) => {
   modalImage.value = {
     src: getImageUrl(imageName),
@@ -157,60 +262,53 @@ const openImageModal = (imageName, productName) => {
     name: productName
   }
   showImageModal.value = true
-  // 防止背景滾動
   document.body.style.overflow = 'hidden'
 }
 
-// 關閉圖片放大模態視窗
 const closeImageModal = () => {
   showImageModal.value = false
   modalImage.value = { src: '', alt: '', name: '' }
-  // 恢復背景滾動
   document.body.style.overflow = 'auto'
 }
 
-// 按 ESC 鍵關閉模態視窗
 const handleKeyDown = (event) => {
-  if (event.key === 'Escape' && showImageModal.value) {
-    closeImageModal()
-  }
+  if (event.key === 'Escape' && showImageModal.value) closeImageModal()
 }
 
-// 監聽鍵盤事件
-document.addEventListener('keydown', handleKeyDown)
+onMounted(() => document.addEventListener('keydown', handleKeyDown))
+onUnmounted(() => document.removeEventListener('keydown', handleKeyDown))
 
-// 平滑滾動函數
+// 平滑滾動
 const smoothScrollTo = (targetId) => {
-  const element = document.getElementById(targetId)
-  if (element) {
-    const offsetTop = element.offsetTop - 100 // 減去導航列高度
-    window.scrollTo({
-      top: offsetTop,
-      behavior: 'smooth'
-    })
+  const el = document.getElementById(targetId)
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY - 90
+    window.scrollTo({ top, behavior: 'smooth' })
   }
 }
+const scrollTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
 
-// 產品資料
+// 產品資料（保留原本客戶提供的所有品項）
 const productCategories = ref([
-
-{
+  {
     id: 1,
     category: '紙杯專用',
-    icon: '🥤',
+    en: 'Paper Cups',
+    desc: '營業用飲水紙杯、耐熱杯、塑膠杯、縮小紙杯一應俱全',
     products: [
       { name: '空白紙杯6.5oz', image: '空白紙杯6.5oz.png' },
       { name: '空白紙杯7oz', image: '空白紙杯7oz.png' },
       { name: '空白紙杯9oz', image: '空白紙杯9oz.png' },
       { name: '空白紙杯樣式', image: '白杯sample.jpg' },
       { name: '塑膠杯', image: '塑膠杯.jpg' },
-      { name: '縮小紙杯', image: '縮小紙杯.jpg' },
+      { name: '縮小紙杯', image: '縮小紙杯.jpg' }
     ]
   },
   {
     id: 2,
     category: '衛生清潔用品',
-    icon: '🧻',
+    en: 'Hygiene',
+    desc: '高品質衛生紙、擦手紙、紙毛巾，品項齊全穩定供貨',
     products: [
       { name: '擦手紙(厚)', image: '高品質.jpg' },
       { name: '優活大抽衛生紙', image: '優活衛生紙.webp' },
@@ -220,36 +318,39 @@ const productCategories = ref([
       { name: '嬌采抽取式衛生紙', image: '嬌采.jpg' },
       { name: '平板衛生紙', image: '平板衛生紙.webp' },
       { name: '紙毛巾', image: '紙毛巾.webp' },
-      { name: '嬌采大捲衛生紙', image: '嬌采大捲衛生紙.jpg' },
+      { name: '嬌采大捲衛生紙', image: '嬌采大捲衛生紙.jpg' }
     ]
   },
   {
     id: 3,
-    category: '垃圾袋',
-    icon: '🗑️',
+    category: '環保垃圾袋',
+    en: 'Eco Bags',
+    desc: '袋王系列 S / M / L / XL / XXL 全尺寸供應',
     products: [
       { name: '垃圾袋(小)', image: '垃圾袋小.jpg' },
       { name: '垃圾袋(中)', image: '垃圾袋中.jpg' },
       { name: '垃圾袋(大)', image: '垃圾袋大.jpg' },
       { name: '垃圾袋(特大)', image: '垃圾袋特大.jpg' },
-      { name: '捲筒清潔袋(超大)(黑色&灰色)', image: '捲筒清潔袋(超大)(黑色&灰色).webp' },
+      { name: '捲筒清潔袋(超大)(黑色&灰色)', image: '捲筒清潔袋(超大)(黑色&灰色).webp' }
     ]
   },
   {
     id: 4,
     category: '按摩護理用品',
-    icon: '💆‍♀️',
+    en: 'Massage Care',
+    desc: '按摩油、乳液、水果油、沐浴乳—會館專用規格',
     products: [
       { name: '1+2+1油壓包', image: '油壓包.webp' },
       { name: '康禮士水果油', image: '康禮士水國油.webp' },
       { name: '水果油', image: '水果油.webp' },
-      { name: '沐浴乳(無香味)', image: '沐浴乳.webp' },
+      { name: '沐浴乳(無香味)', image: '沐浴乳.webp' }
     ]
   },
   {
     id: 5,
     category: '清潔用品',
-    icon: '🧽',
+    en: 'Cleaning',
+    desc: '洗劑、漂白水、除油劑、洗衣粉—商用清潔全包',
     products: [
       { name: '洗潔精', image: '洗潔精.webp' },
       { name: '漂白水', image: '漂白水.webp' },
@@ -264,7 +365,8 @@ const productCategories = ref([
   {
     id: 6,
     category: '毛巾寢具用品',
-    icon: '🛏️',
+    en: 'Linen',
+    desc: '布織布浴巾、紙浴巾、床巾—飯店民宿指定品項',
     products: [
       { name: '布織布浴巾', image: '布織布浴巾.webp' },
       { name: '無塵紙浴巾', image: '無塵紙浴巾.webp' },
@@ -272,89 +374,504 @@ const productCategories = ref([
       { name: '紙浴巾(箱)', image: '紙浴巾(箱).jpg' },
       { name: '床巾(80*180cm)', image: '床斤.webp' }
     ]
-  },
-])
-
-// 公司特色
-const features = ref([
-  {
-    icon: '🏆',
-    title: '35年經驗',
-    description: '累積35年的專業經驗與信譽'
-  },
-  {
-    icon: '✅',
-    title: '品質保證',
-    description: '嚴格品管，確保產品品質'
-  },
-  {
-    icon: '🚚',
-    title: '快速配送',
-    description: '台中地區快速到貨服務'
-  },
-  {
-    icon: '💝',
-    title: '客戶至上',
-    description: '用心服務每一位客戶'
   }
 ])
 
-const getImageUrl = (imageName) => {
-  return `/images/${imageName}`
-}
+// 為何選擇光明
+const whyItems = [
+  { num: '壹', title: '三十五載不變的堅持', desc: '自 1993 年創立，深耕台中。時間會淘汰所有浮誇，留下來的都是真材實料。' },
+  { num: '貳', title: '在地深耕 · 即時供貨', desc: '門市設於台中北屯，服務範圍涵蓋大台中地區。電話一通，常備品最快當日送達。' },
+  { num: '參', title: 'B2B 批發 · 誠信報價', desc: '專注商家、飯店、按摩店批發。長期合作提供穩定價格，量大從優，不二價、不灌水。' },
+  { num: '肆', title: '全品項一站採購', desc: '衛生紙、紙杯、垃圾袋、毛巾、按摩油—一家就搞定，不需要比十家、問十家。' }
+]
 
+const getImageUrl = (imageName) => `/images/${imageName}`
 const handleImageError = (event) => {
-  event.target.style.display = 'none'
+  event.target.style.opacity = '0.3'
 }
 </script>
 
 <style scoped>
-/* 全域樣式 */
-* {
-  box-sizing: border-box;
+/* === 英雄區塊 === */
+.hero {
+  padding: 72px 0 96px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-vertical {
+  position: absolute;
+  right: 4%;
+  top: 60px; bottom: 60px;
+  font-size: 13px;
+  color: var(--ink-line);
+  letter-spacing: 0.6em;
+  font-weight: 500;
+  pointer-events: none;
+}
+.hero-inner { position: relative; }
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 72px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.hero-meta-right {
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-mute);
+  letter-spacing: 0.2em;
+}
+.hero-meta-right .dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--seal);
 }
 
-.home {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  color: #333;
-}
-
-.container {
-  max-width: 1200px;
+.hero-center {
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 0 20px;
-}
-
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
   text-align: center;
-  margin-bottom: 3rem;
-  color: #2c3e50;
   position: relative;
 }
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 2px;
+.hero-subtitle {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(14px, 1.2vw, 17px);
+  letter-spacing: 1.2em;
+  color: var(--ink-soft);
+  padding-left: 1.2em;
+  margin-bottom: 28px;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(48px, 8.2vw, 128px);
+  line-height: 0.98;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  margin-bottom: 20px;
+  white-space: nowrap;
+}
+.hero-rule {
+  display: flex; align-items: center; justify-content: center;
+  gap: 20px; margin-bottom: 44px; flex-wrap: wrap;
+}
+.hairline {
+  flex: 0 1 80px;
+  min-width: 40px;
+  height: 1px;
+  background: var(--ink-line);
+}
+.hero-rule-label {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(14px, 1.3vw, 18px);
+  color: var(--seal);
+  letter-spacing: 0.35em;
+  padding-left: 0.35em;
+  white-space: nowrap;
+}
+.hero-desc {
+  max-width: 640px;
+  margin: 0 auto 44px;
+  font-size: 16.5px;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.hero-desc strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.hero-ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 64px;
 }
 
-/* 圖片放大模態視窗樣式 */
-.image-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
+/* Stat strip */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--ink-line);
+  border-bottom: 1px solid var(--ink-line);
+  max-width: 1040px;
+  margin: 0 auto;
+}
+.stat {
+  padding: 28px 20px;
+  border-right: 1px solid var(--ink-line);
+  text-align: center;
+}
+.stat:last-child { border-right: none; }
+.stat-num-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.stat-num {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 44px;
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-unit {
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.stat-label {
+  font-family: var(--serif);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.2em;
+}
+
+/* === 創辦人引言 === */
+.intro-quote {
+  padding: 80px 0;
+  background: var(--cream);
+  border-top: 1px solid var(--ink-line);
+  border-bottom: 1px solid var(--ink-line);
+}
+.quote-inner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 64px;
+}
+.quote-mark {
+  font-family: var(--display);
+  font-size: 88px;
+  color: var(--seal);
+  line-height: 0.9;
+  font-style: italic;
+}
+.quote-body p {
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.6;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+}
+.quote-author {
+  margin-top: 20px;
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--ink-mute);
+  letter-spacing: 0.2em;
+}
+
+/* === 產品區 section head === */
+.products-section { scroll-margin-top: 90px; }
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.section-head .h-section em {
+  font-family: var(--display);
+  font-style: italic;
+  color: var(--seal);
+}
+
+/* 類別卡片 */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.cat-card {
+  cursor: pointer;
+  background: var(--cream);
+  border: 1px solid var(--ink-line);
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -20px rgba(29,29,27,0.2);
+}
+.cat-img-wrap {
+  aspect-ratio: 4 / 3;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--ink-line);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.cat-img {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+  object-fit: cover;
+}
+.cat-img-badge {
+  position: absolute;
+  top: 12px; left: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--cream);
+  padding: 4px 8px;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+}
+.cat-body { padding: 22px 24px 26px; }
+.cat-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+.cat-title {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.cat-count {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+}
+.cat-en {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--ink-mute);
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+.cat-desc {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+/* === Why section === */
+.why { background: var(--paper-2); }
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 80px;
+  align-items: start;
+}
+.why-left { position: sticky; top: 120px; }
+.why-stamps {
+  margin-top: 40px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.stamp-navy {
+  border-color: var(--navy) !important;
+  color: var(--navy) !important;
+  transform: rotate(2deg);
+}
+.stamp-navy::before, .stamp-navy::after { background: var(--navy) !important; }
+
+.why-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--ink-line);
+}
+.why-item.no-border { border-bottom: none; }
+.why-num {
+  width: 56px; height: 56px;
+  border: 1.5px solid var(--seal);
+  color: var(--seal);
+  display: grid;
+  place-items: center;
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 700;
+}
+.why-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 0.03em;
+}
+
+/* === 完整產品目錄 === */
+.products-detail { scroll-margin-top: 90px; }
+.cat-block {
+  padding: 48px 0;
+  border-top: 1px solid var(--ink-line);
+  scroll-margin-top: 90px;
+}
+.cat-block:first-of-type { border-top: none; padding-top: 0; }
+.cat-block-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 32px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.cat-block-en {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--seal);
+  letter-spacing: 0.15em;
+  margin-bottom: 6px;
+}
+.cat-block-title {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+}
+.cat-block-meta {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-mute);
+  letter-spacing: 0.15em;
+}
+
+.product-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+}
+.product-image-item {
+  cursor: pointer;
+  background: var(--cream);
+  border: 1px solid var(--ink-line);
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.product-image-item:hover {
+  transform: translateY(-2px);
+  border-color: var(--ink);
+  box-shadow: 0 14px 28px -18px rgba(29,29,27,0.25);
+}
+.product-image-wrap {
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: var(--paper-2);
+  border-bottom: 1px solid var(--ink-line);
+}
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.product-image-item:hover .product-image { transform: scale(1.04); }
+.product-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  color: var(--ink);
+  padding: 12px 14px;
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* === CTA 聯絡區 === */
+.cta-banner {
+  background: var(--navy-deep);
+  color: var(--cream);
+  padding: 96px 0;
+  scroll-margin-top: 90px;
+}
+.cta-inner { text-align: center; }
+.cta-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: rgba(245,239,225,0.5);
+  margin-bottom: 24px;
+}
+.cta-title {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4.5vw, 60px);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
+}
+.cta-title em {
+  font-family: var(--display);
+  font-style: italic;
+  color: #d9b97a;
+}
+.cta-desc {
+  font-size: 16px;
+  color: rgba(245,239,225,0.7);
+  max-width: 560px;
+  margin: 0 auto 44px;
+  line-height: 1.75;
+}
+.cta-contacts {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 44px;
+  flex-wrap: wrap;
+}
+.cta-contact { text-align: left; }
+.cta-c-icon {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: rgba(245,239,225,0.5);
+  margin-bottom: 8px;
+}
+.cta-c-big {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--cream);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.cta-c-small {
+  font-size: 12px;
+  color: rgba(245,239,225,0.6);
+}
+.cta-divider {
+  width: 1px;
+  background: rgba(245,239,225,0.15);
+}
+.cta-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cta-outline {
+  border-color: rgba(245,239,225,0.4);
+  color: var(--cream);
+}
+.cta-outline:hover {
+  background: var(--cream);
+  color: var(--navy-deep);
+}
+
+/* === 模態視窗 === */
+.image-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 37, 71, 0.88);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -362,7 +879,6 @@ const handleImageError = (event) => {
   cursor: pointer;
   backdrop-filter: blur(5px);
 }
-
 .image-modal {
   position: relative;
   max-width: 90vw;
@@ -371,607 +887,82 @@ const handleImageError = (event) => {
   flex-direction: column;
   align-items: center;
   cursor: default;
-  animation: modalFadeIn 0.3s ease-out;
+  animation: modalFadeIn 0.25s ease-out;
 }
-
 @keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
-
 .modal-close-btn {
   position: absolute;
   top: -50px;
   right: 0;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  width: 40px;
-  height: 40px;
+  background: rgba(245,239,225,0.15);
+  color: var(--cream);
+  width: 40px; height: 40px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
 }
-
 .modal-close-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
+  background: var(--seal);
+  transform: scale(1.05);
 }
-
 .modal-image {
   max-width: 100%;
   max-height: 70vh;
   object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: var(--cream);
+  border: 1px solid rgba(245,239,225,0.2);
 }
-
 .modal-caption {
   margin-top: 20px;
   text-align: center;
-  color: white;
+  color: var(--cream);
+  font-family: var(--serif);
 }
-
 .modal-caption h3 {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  color: #fff;
-}
-
-.modal-caption p {
-  font-size: 0.9rem;
-  margin: 0;
-  opacity: 0.7;
-}
-
-/* 可點擊圖片樣式 */
-.clickable-image {
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.clickable-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.clickable-image::after {
-  content: '🔍';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.clickable-image:hover::after {
-  opacity: 1;
-}
-
-/* 英雄區塊 */
-.hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 120px 0;
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
-}
-
-.hero-section .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  width: 100%;
-}
-
-.hero-content {
-  max-width: none;
-  padding: 0;
-  margin: 0;
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-  line-height: 1.2;
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 1.5rem;
-  opacity: 0.9;
-}
-
-.hero-description {
-  font-size: 1.1rem;
-  margin-bottom: 2.5rem;
-  opacity: 0.8;
-  line-height: 1.8;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.btn-primary, .btn-secondary {
-  padding: 15px 30px;
-  border: none;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.btn-primary {
-  background: white;
-  color: #667eea;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-}
-
-.btn-secondary:hover {
-  background: white;
-  color: #667eea;
-  transform: translateY(-2px);
-}
-
-.hero-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-placeholder {
-  background: rgba(255,255,255,0.1);
-  padding: 80px 40px;
-  border-radius: 20px;
-  text-align: center;
-  font-size: 2rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  width: 100%;
-  max-width: 400px;
-}
-
-/* 公司特色區塊 */
-.features-section {
-  padding: 100px 0;
-  background: #f8f9fa;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-}
-
-.feature-card {
-  background: white;
-  padding: 2.5rem 1.5rem;
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.feature-icon {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-.feature-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #2c3e50;
-}
-
-.feature-description {
-  color: #6c757d;
-  line-height: 1.6;
-}
-
-/* 產品區塊 */
-.products-section {
-  padding: 100px 0;
-  background: white;
-  scroll-margin-top: 100px;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-}
-
-.product-card {
-  background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-}
-
-.product-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 1.5rem;
-  text-align: center;
-  color: white;
-}
-
-.product-icon {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.product-category {
   font-size: 1.2rem;
-  font-weight: 700;
-  margin: 0 0 0.5rem 0;
-}
-
-.product-count {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  margin: 0;
-}
-
-.product-images {
-  flex: 1;
-  padding: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 1rem;
-  transition: all 0.3s ease;
-}
-
-.product-image-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  height: 100%;
-}
-
-.product-image {
-  width: 100%;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
-}
-
-.product-image:hover {
-  transform: scale(1.05);
-}
-
-.product-name {
-  font-size: 0.9rem;
-  color: #555;
-  line-height: 1.3;
-  height: auto;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  flex-grow: 1;
-}
-
-.product-footer {
-  padding: 0 1.5rem 1.5rem;
-}
-
-.product-btn {
-  background: #667eea;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  cursor: pointer;
   font-weight: 600;
-  transition: all 0.3s ease;
-  width: 100%;
-  font-size: 1rem;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+}
+.modal-caption p {
+  font-family: var(--mono);
+  font-size: 11px;
+  opacity: 0.6;
+  letter-spacing: 0.15em;
 }
 
-.product-btn:hover {
-  background: #5a6fd8;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+/* === 響應式 === */
+@media (max-width: 960px) {
+  .why-grid { grid-template-columns: 1fr; gap: 40px; }
+  .why-left { position: static; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
-/* 聯絡區塊 */
-.contact-section {
-  padding: 100px 0;
-  background: #2c3e50;
-  color: white;
-  scroll-margin-top: 100px;
+@media (max-width: 720px) {
+  .hero { padding: 48px 0 72px; }
+  .hero-meta { margin-bottom: 48px; }
+  .hero-title { white-space: normal; }
+  .quote-inner { grid-template-columns: 1fr; gap: 24px; text-align: left; }
+  .quote-mark { font-size: 64px; }
+  .quote-body p { font-size: 20px; }
+  .stat-strip { grid-template-columns: repeat(2, 1fr); }
+  .stat:nth-child(2) { border-right: none; }
+  .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--ink-line); }
+  .cat-grid { grid-template-columns: 1fr; }
+  .cta-divider { display: none; }
+  .cta-contacts { gap: 28px; }
+  .cat-block-title { font-size: 24px; }
 }
-
-.contact-section .section-title {
-  color: white;
-}
-
-.contact-section .section-title::after {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.contact-info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
-}
-
-.contact-item {
-  display: flex;
-  align-items: flex-start;
-  background: rgba(255,255,255,0.1);
-  padding: 2rem;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.contact-item:hover {
-  background: rgba(255,255,255,0.15);
-  transform: translateY(-3px);
-}
-
-.contact-icon {
-  font-size: 1.5rem;
-  margin-right: 1rem;
-  margin-top: 0.2rem;
-}
-
-.contact-details h4 {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #ecf0f1;
-}
-
-.contact-details p {
-  color: #bdc3c7;
-  line-height: 1.6;
-}
-
-.contact-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-/* 響應式設計 */
-@media (max-width: 768px) {
-  .hero-section {
-    padding: 80px 0;
-    min-height: 70vh;
-  }
-  
-  .hero-section .container {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    text-align: center;
-  }
-  
-  .hero-title {
-    font-size: 2.5rem;
-  }
-  
-  .hero-actions {
-    justify-content: center;
-  }
-  
-  .hero-placeholder {
-    padding: 60px 30px;
-    font-size: 1.5rem;
-  }
-  
-  .section-title {
-    font-size: 2rem;
-  }
-  
-  .contact-info-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .features-grid, .products-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .product-images {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 0.8rem;
-    padding: 1rem;
-  }
-  
-  .product-image {
-    height: 80px;
-  }
-  
-  .product-name {
-    font-size: 0.8rem;
-  }
-  
-  /* 模態視窗在平板上的調整 */
-  .modal-close-btn {
-    top: -40px;
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
-  }
-  
-  .modal-image {
-    max-height: 60vh;
-  }
-  
-  .modal-caption h3 {
-    font-size: 1.2rem;
-  }
-}
-
 @media (max-width: 480px) {
-  .hero-section {
-    padding: 60px 0;
-    min-height: 60vh;
-  }
-  
-  .hero-title {
-    font-size: 2rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.2rem;
-  }
-  
-  .hero-description {
-    font-size: 1rem;
-  }
-  
-  .btn-primary, .btn-secondary {
-    padding: 12px 24px;
-    font-size: 1rem;
-  }
-  
-  .hero-placeholder {
-    padding: 40px 20px;
-    font-size: 1.2rem;
-  }
-  
-  .container {
-    padding: 0 15px;
-  }
-  
-  .products-section {
-    padding: 60px 0;
-  }
-  
-  .product-images {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.5rem;
-    padding: 1rem;
-  }
-  
-  .product-image {
-    height: 70px;
-  }
-  
-  .product-name {
-    font-size: 0.75rem;
-    line-height: 1.2;
-  }
-  
-  .product-header {
-    padding: 1rem;
-  }
-  
-  .product-icon {
-    font-size: 2rem;
-  }
-  
-  .product-category {
-    font-size: 1.1rem;
-  }
-  
-  /* 手機版模態視窗優化 */
-  .image-modal-overlay {
-    padding: 20px;
-  }
-  
-  .image-modal {
-    max-width: 95vw;
-    max-height: 85vh;
-  }
-  
-  .modal-close-btn {
-    top: -35px;
-    right: -10px;
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-  }
-  
-  .modal-image {
-    max-height: 50vh;
-    border-radius: 8px;
-  }
-  
-  .modal-caption {
-    margin-top: 15px;
-  }
-  
-  .modal-caption h3 {
-    font-size: 1.1rem;
-  }
-  
-  .modal-caption p {
-    font-size: 0.8rem;
-  }
-  
-  .clickable-image::after {
-    width: 25px;
-    height: 25px;
-    font-size: 10px;
-  }
+  .hero-vertical { display: none; }
+  .product-images { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .product-name { font-size: 12px; padding: 10px; }
+  .modal-close-btn { top: -44px; right: -8px; width: 34px; height: 34px; font-size: 20px; }
 }
 </style>
